@@ -1,0 +1,6 @@
+- name: Home
+  link: /
+- name: Tutorial Series
+  link: /series.html
+- name: All Tutorials
+  link: /tutorials.html
