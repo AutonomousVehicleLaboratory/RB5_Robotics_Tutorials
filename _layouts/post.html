@@ -21,9 +21,9 @@ layout: default
    - 
   {{ page.author }}
   
-  {% assign serie = site.series | where: 'name', page.serie | first %}
-  {% if serie %}
-    - <a href="{{ serie.url }}">{{ serie.name }}</a>
+  {% assign series = site.series | where: 'name', page.series | first %}
+  {% if series %}
+    - <a href="{{ series.url }}">{{ series.name }}</a>
   {% endif %}
 </p>
 

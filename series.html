@@ -1,13 +1,13 @@
 ---
-title: Series
+title: series
 ---
-<h1>Tutorial Series</h1>
+<h1>Tutorial series</h1>
 
 <ul>
-  {% for serie in site.series %}
+  {% for series in site.series %}
     <li>
-      <h2><a href="{{ serie.url }}">{{ serie.name }}</a></h2>
-      <p>{{ serie.content | markdownify }}</p>
+      <h2><a href="{{ series.url }}">{{ series.name }}</a></h2>
+      <p>{{ series.content | markdownify }}</p>
     </li>
   {% endfor %}
 </ul>
