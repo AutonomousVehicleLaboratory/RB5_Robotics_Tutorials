@@ -5,5 +5,6 @@ db.json
 node_modules/
 nodejs/
 site/public/
+site/themes/
 site/.deploy*/
 _multiconfig.yml
