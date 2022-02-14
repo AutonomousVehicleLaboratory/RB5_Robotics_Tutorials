@@ -4,28 +4,6 @@ We created a set of Robotics tutorials for the RB5 Robotics developent platform 
 
 ## Site maintain
 
-The source code and posts are in branch [hexo-source](https://github.com/AutonomousVehicleLaboratory/RB5_Robotics_Tutorials/tree/hexo-source).
+The source code and posts are in branch [hexo-source](https://github.com/AutonomousVehicleLaboratory/RB5_Robotics_Tutorials/tree/hexo-source), visit this branch to learn how to add content and deploy the site.
+
 The deployed site is in branch [gh-pages](https://github.com/AutonomousVehicleLaboratory/RB5_Robotics_Tutorials/tree/gh-pages).
-
-### How to add posts
-
-Add a new markdown file in the branch [hexo-source](https://github.com/AutonomousVehicleLaboratory/RB5_Robotics_Tutorials/tree/hexo-source), folder site/source/_posts/
-
-The Subfolder refers to which category this post belongs to.
-
-### Test and deploy the site
-
-Clone the repository to your local environment and checkout the [hexo-source](https://github.com/AutonomousVehicleLaboratory/RB5_Robotics_Tutorials/tree/hexo-source) branch.
-
-To run on a local server, run
-
-```
-hexo clean && hexo g && hexo s
-```
-
-To deploy the site to Github Pages, run
-```
-hexo clean && hexo g && hexo d
-```
-
-This will publish the site to [gh-pages](https://github.com/AutonomousVehicleLaboratory/RB5_Robotics_Tutorials/tree/gh-pages) branch, without the need to mannually commit and push the code. Wait for a few minutes, then the updates will be available on the website.
