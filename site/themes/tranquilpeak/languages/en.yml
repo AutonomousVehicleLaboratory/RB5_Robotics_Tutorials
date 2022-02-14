@@ -82,5 +82,6 @@ post:
 author:
     # Your biography (Markdown and HTML supported)
     bio: "A set of Robotics Tutorials developed for the RB5 Robotics Development Platform from Qualcomm. Authors are from the Contextual Robotics Institute at UC San Diego."
-    # Your job
+    # Your job # ignored in current site
     job: "By AVL"
+    authors: "Henrik I. Christensen, David Paz, Henry Zhang, Anirudh Ramesh."
