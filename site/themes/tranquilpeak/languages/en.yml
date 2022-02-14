@@ -81,6 +81,6 @@ post:
 
 author:
     # Your biography (Markdown and HTML supported)
-    bio: "My Bio is here"
+    bio: "A set of Robotics Tutorials developed for the RB5 Robotics Development Platform from Qualcomm. Authors are from the Contextual Robotics Institute at UC San Diego."
     # Your job
-    job: "My Job"
+    job: "By AVL"

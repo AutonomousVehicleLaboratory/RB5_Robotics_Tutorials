@@ -42,16 +42,16 @@ sidebar:
             title: global.tags
             url: /all-tags
             icon: fa fa-tags
-        archives:
-            title: global.archives
-            url: /all-archives
-            icon: fa fa-archive
-        search:
-            title: global.search
-            url: "#search"
-            icon: fa fa-search
-            # `open-algolia-search` classes are used to open algolia search modal
-            class: open-algolia-search
+        # archives:
+        #     title: global.archives
+        #     url: /all-archives
+        #     icon: fa fa-archive
+        # search:
+        #     title: global.search
+        #     url: "#search"
+        #     icon: fa fa-search
+        #     # `open-algolia-search` classes are used to open algolia search modal
+        #     class: open-algolia-search
         about:
             title: global.about
             url: "#about"
@@ -59,7 +59,7 @@ sidebar:
     # author_links:
         github:
             title: global.github
-            url: https://github.com/
+            url: https://github.com/AutonomousVehicleLaboratory
             icon: fab fa-github
         # stack_overflow:
         #     title: global.stack_overflow
@@ -123,7 +123,7 @@ author:
     # or in `source/assets/images/` (production)
     # or you can use an external url
     # Overwritten by your gravatar image if `gravatar_email` is filled
-    picture: http://avl.ucsd.edu/wp-content/uploads/2019/04/avl-letters.png
+    picture: avl-letters.png
     # Your Twitter username without the @. E.g : `tranquilpeak`
     twitter:
     # Your personal google plus profile id, not your blog or business page id.

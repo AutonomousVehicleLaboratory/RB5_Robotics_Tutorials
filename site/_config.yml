@@ -3,17 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: RB5 ROBOTICS
-subtitle: 'Some text for subtitle'
+title: RB5 ROBOTICS TUTORIALS
+subtitle: 'by UC San Diego'
 description: 'Some description for subtitle'
 keywords:
-author: RB5 ROBOTICS
+author: RB5 ROBOTICS TUTORIALS
 language: en
 timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://autonomousvehiclelaboratory.github.io/RB5_Robotics
+url: https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -103,6 +103,13 @@ theme: tranquilpeak
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: https://github.com/AutonomousVehicleLaboratory/RB5_Robotics
+  repo: https://github.com/AutonomousVehicleLaboratory/RB5_Robotics_Tutorials
   # example, https://github.com/hexojs/hexojs.github.io
   branch: gh-pages
+
+# Generate categories from directory-tree
+# Dependencies: https://github.com/xu-song/hexo-auto-category
+# depth: the max_depth of directory-tree you want to generate, should > 0
+auto_category:
+ enable: true
+ depth: 
