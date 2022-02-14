@@ -1,10 +1,10 @@
 # RB5_Robotics_Tutorials Github Pages
 
-For visitors, visit our site at https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/.
+We created a set of Robotics tutorials for the RB5 Robotics developent platform from Qualcomm. You can visit these tutorials on https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/. This repository is for hosting the source code and posts.
 
 ## Site maintain
 
-The source code and posts are in branch hexo-source.
+The source code and posts are in branch [hexo-source](https://github.com/AutonomousVehicleLaboratory/RB5_Robotics_Tutorials/tree/hexo-source).
 The deployed site is in branch gh-pages.
 
 ### How to add posts
