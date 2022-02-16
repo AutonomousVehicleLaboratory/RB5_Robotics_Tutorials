@@ -41,7 +41,7 @@ This website uses Hexo with Github Pages. To enable generating website with hexo
 ### Robotics people setup
 
 If you have ROS installed or need ROS in the future, there will be a dependency conflict when you are trying to install npm. Therefore a workaround is provided in this [StackOverFlow Answer](https://stackoverflow.com/questions/65519982/can-not-install-npm-along-side-with-the-ros-melodic
-). Basically, we you need to setup a python virtual environment, in which you will install nodeenv, and use nodeenv to create a virtual environment, that allows you to have npm and nodejs installed without the need to remove all ROS related packages. Steps to create nodeenv virtual environment is in this [link](https://pypi.org/project/nodeenv/#basic). Then you can install npm with apt within this environment.
+). Basically, you need to setup a python virtual environment, in which you will install nodeenv, and use nodeenv to create another virtual environment, that allows you to have npm and nodejs installed without the need to remove all ROS related packages. Steps to create nodeenv virtual environment is in this [link](https://pypi.org/project/nodeenv/#basic). Then you can install npm with apt within this environment.
 
 ### Standard Setup
 
@@ -52,6 +52,7 @@ Follow the guide from [Hexo](https://hexo.io/).
 We are using an Hexo theme [Tranquilpeak](https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak). This theme is downloaded into the site/themes/tranquilpeak folder.
 
 Many of the settings can be found in the following files:
-site/_config.yml
-site/themes/tranquilpeak/_config.yml ()
-site/themes/tranquilpeak/languages/en.yml (about page intro)
+
+1. site/_config.yml (site settings succh as title)
+2. site/themes/tranquilpeak/_config.yml (theme settings like the sidebar configuration)
+3. site/themes/tranquilpeak/languages/en.yml (about page intro)
