@@ -9,9 +9,9 @@ The deployed site is in branch [gh-pages](https://github.com/AutonomousVehicleLa
 
 ### How to add posts
 
-Posts are organized into categories. These categories are subfolders in the [hexo-source](https://github.com/AutonomousVehicleLaboratory/RB5_Robotics_Tutorials/tree/hexo-source) branch. new posts created in the folder will hae the same category as its folder name. 
+Posts are organized into categories. These categories are subfolders in the [hexo-source](https://github.com/AutonomousVehicleLaboratory/RB5_Robotics_Tutorials/tree/hexo-source) branch in site/source/_posts/. new posts created in the folder will have the same category as its folder name. 
 
-To create a new post, add a new markdown file corresponding category folder in site/source/_posts/
+To create a new post, add a new markdown file in the corresponding category folder. A post should have the title, date and category attributes and optionally having tags. Posts in each category are ordered by (1) (2) (3) indicating the reading order. 
 
 Then, you can test your site locally or deploy it to github pages by the following steps. 
 
