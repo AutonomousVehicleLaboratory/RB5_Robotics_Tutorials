@@ -1,7 +1,7 @@
 ---
-title: bring up RB5
+title: (1) Bring Up RB5
 categories:
-  - basic-tutorials
+  - Basic Tutorials
 date: 2022-02-13 17:12:21
 tags:
 ---

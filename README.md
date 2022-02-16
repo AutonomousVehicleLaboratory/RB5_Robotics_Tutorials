@@ -9,9 +9,9 @@ The deployed site is in branch [gh-pages](https://github.com/AutonomousVehicleLa
 
 ### How to add posts
 
-Add a new markdown file in the branch [hexo-source](https://github.com/AutonomousVehicleLaboratory/RB5_Robotics_Tutorials/tree/hexo-source), folder site/source/_posts/
+Posts are organized into categories. These categories are subfolders in the [hexo-source](https://github.com/AutonomousVehicleLaboratory/RB5_Robotics_Tutorials/tree/hexo-source) branch. new posts created in the folder will hae the same category as its folder name. 
 
-The Subfolder refers to which category this post belongs to.
+To create a new post, add a new markdown file corresponding category folder in site/source/_posts/
 
 Then, you can test your site locally or deploy it to github pages by the following steps. 
 
@@ -31,6 +31,8 @@ hexo clean && hexo g && hexo d
 ```
 
 This will publish the site to [gh-pages](https://github.com/AutonomousVehicleLaboratory/RB5_Robotics_Tutorials/tree/gh-pages) branch, without the need to mannually commit and push the code. Wait for a few minutes, then the updates will be available on the website.
+
+Notice that even though the deployment branch is updated after the previous step, you still need to commit and push your updates to the 'hexo-source' branch.
 
 ## Environment Setup
 
