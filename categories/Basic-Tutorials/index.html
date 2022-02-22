@@ -242,7 +242,19 @@
             </div>
             
                 <div class="postShorten-content">
-                    <p>Coming soon.</p>
+                    <p>A few ways allow you to access the main camera from rb5. It cannot be read from OpenCV directly but a gstreamer can bridge the gap.</p>
+<p>The easiest way to access camera is through a tcp port.</p>
+<p>On RB5, run the following command:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gst-launch-1.0 -e qtiqmmfsrc name=qmmf ! video/x-h264,format=NV12, width=1280, height=720,framerate=30/1 ! h264parse config-interval=1 ! mpegtsmux name=muxer ! queue ! tcpserversink port=8900 host=192.168.1.120</span><br></pre></td></tr></table></figure>
+
+<p>Notice that you will need to change the host ip to your RB5 ip address.</p>
+<p>Then you can access the camera from opencv by</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import cv2</span><br><span class="line"></span><br><span class="line">cap = cv2.VideoCapture(&quot;tcp://192.168.1.120:8900&quot;) #rb5 ip &amp; port (same from command)</span><br><span class="line">while(True):</span><br><span class="line">    ret, frame = cap.read()</span><br><span class="line">    cv2.imwrite(&quot;captured_image_opencv.jpg&quot;,frame)</span><br><span class="line">    # you can process image by using frame </span><br><span class="line">    break</span><br><span class="line">cap.release()</span><br></pre></td></tr></table></figure>
+
+<p>Again, make sure you change the host ip to your RB5 ip.</p>
+<p>Another way is to use the ROS package we provided both in ROS1 and ROS2.</p>
+<p>ROS1: <a target="_blank" rel="noopener" href="https://github.com/AutonomousVehicleLaboratory/rb5_ros/tree/main/rb5_vision">https://github.com/AutonomousVehicleLaboratory/rb5_ros/tree/main/rb5_vision</a><br>ROS2: <a target="_blank" rel="noopener" href="https://github.com/AutonomousVehicleLaboratory/rb5_ros2/tree/main/rb5_ros2_vision">https://github.com/AutonomousVehicleLaboratory/rb5_ros2/tree/main/rb5_ros2_vision</a></p>
+<p>Reference:<br>[1]: <a target="_blank" rel="noopener" href="https://developer.qualcomm.com/comment/18637#comment-18637">https://developer.qualcomm.com/comment/18637#comment-18637</a></p>
 
                     
                         
@@ -358,7 +370,18 @@
             </div>
             
                 <div class="postShorten-content">
-                    <p>Coming soon.</p>
+                    <p>Getting a gnome desktop is desirable for its more familiar to most of us compared to the default wayland desktop. </p>
+<p>To get the gnome desktop, you will need to unminimize the system first. The current system is a minimal ubuntu 18.04 server and you can unminimize it to add more tools.</p>
+<p>Then you can start install the gnome desktop by the following commands:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt install gdm3 tasksel</span><br><span class="line">tasksel install ubuntu-desktop</span><br></pre></td></tr></table></figure>
+
+<p>When this is done, you need to run the following command everytime you want to us the gnome desktop.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service gdm3 start</span><br></pre></td></tr></table></figure>
+
+<p>Notice that in order to successfully login to the gnome desktop, make use you choose the wayland for ubuntu in the login page, otherwise your username and password might not work.</p>
+<p>Notice that even we have this gnome desktop, many gui applications with x11 support might still not work. However, the gnome-terminal and RViz will work properly.</p>
+<p>Also, we do not recommand use this desktop because it takes a lot of computation (300-400% cpu!!!). It should only be used for visualization and debugging purpose for a short period of time.</p>
+<p>Reference:<br>[1] <a target="_blank" rel="noopener" href="https://linuxconfig.org/how-to-install-gnome-on-ubuntu-18-04-bionic-beaver-linux">https://linuxconfig.org/how-to-install-gnome-on-ubuntu-18-04-bionic-beaver-linux</a></p>
 
                     
                         
