@@ -13,6 +13,12 @@ Posts are organized into categories. These categories are subfolders in the [hex
 
 To create a new post, add a new markdown file in the corresponding category folder. A post should have the title, date and category attributes and optionally having tags. Posts in each category are ordered by (1) (2) (3) indicating the reading order. 
 
+More features can be found in the [theme-documentation](https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak/blob/master/DOCUMENTATION.md). Adding an image to the pose can be done by using the post-asset-folder, which the a folder with the same name as the post in the same directory where the post is. Put your iamge in it and use the following code in your post.
+
+```
+{% image image_name.png [title text] %}
+```
+
 Then, you can test your site locally or deploy it to github pages by the following steps. 
 
 ### Test and deploy the site
