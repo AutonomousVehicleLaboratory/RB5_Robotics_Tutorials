@@ -3,7 +3,7 @@ title: (1) April Tag Feature Detection
 tags:
   - Feature Detection
 categories:
-  - Application (1) GTSAM
+  - 4.2 Application GTSAM
 date: 2022-02-13 17:12:21
 ---
 
