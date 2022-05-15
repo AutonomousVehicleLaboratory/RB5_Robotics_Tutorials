@@ -11,16 +11,16 @@
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"RB5 ROBOTICS TUTORIALS","sameAs":[],"image":"avl-letters.png"},"articleBody":"Coming soon.\n","dateCreated":"2022-02-13T17:12:21-08:00","dateModified":"2022-05-13T17:30:42-07:00","datePublished":"2022-02-13T17:12:21-08:00","description":"","headline":"(1) Bring Up RB5","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/02/13/1%20Basic%20Tutorials/bring-up-rb5/"},"publisher":{"@type":"Organization","name":"RB5 ROBOTICS TUTORIALS","sameAs":[],"image":"avl-letters.png","logo":{"@type":"ImageObject","url":"avl-letters.png"}},"url":"https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/02/13/1%20Basic%20Tutorials/bring-up-rb5/"}</script>
-    <meta name="description" content="Coming soon.">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"RB5 ROBOTICS TUTORIALS","sameAs":[],"image":"avl-letters.png"},"articleBody":"We need to flash the Ubuntu 18.04 operating system to the RB5. The following steps comprise the process of flashing the OS to the board:\na) Install adb and fastboot by using the following command in Linux Terminal: \n  1sudo apt-get install android-tools-adb android-tools-fastboot\n\nb) Download the Qualcomm Robotics SDK Manager from here\nc) The download should be a Zip file that contains the SDK Manager installation package and a Readme file. Follow the instructions in the Readme file to install the prerequisites.\nd) Install the SDK manager on the Linux workstation. Refer to the process given as step 2 in the following link\ne) Before running the SDK manager, if you are using a Linux workstation, run the following command in the Terminal: \n1sudo systemctl stop ModemManager\n\nf) Run the SDK manager. Follow step 3 in the following link\ng) Follow step 4 from the same link to download resources and generate system image. This could take slightly more than 30 minutes. \nh) Choose LU or LE flash. The LU flash has been tried before and flash was a success. This forum answer is a possible explanation for the difference between LU and LE flash.\ni) Now, start the process of flashing the generated system images on the RB5 by following step 5 from the same link\nj) Follow steps 1-3 from this link to continue and complete the flashing process successfully.\nk) If flashing is successful, adb should be working. To check this, keep your RB5 connected to your workstation and open your workstation’s terminal and type: \n1adb shell\nand you should see a device ID shown as an attached device.\nl) If not, please power cycle the development kit. Since the system images are flashed, there is no need to press the F_DL key to force the device to enter the Emergency Download Mode.\nOnce the OS is flashed, the next step involves setting up WiFi and SSH connections.To set up WiFi connectivity on RB5, follow steps 1-4 from this link\nTo access RB5 terminal, both adb shell or SSH can be used. To set up SSH connection:\na) Type the following commands in a new terminal:\n12adb shell  sh-4.4#ifconfig \nThe ‘ifconfig’ command gives you the IP address of your connection.  Then use the following command:\n1sh-4.4#ssh root@ &lt;IP address&gt;\n This will ask you for a password, which is ‘oelinux123’\nThis will successfully complete the SSH connection, through which you can remotely access the RB5 terminal.\nThe next step involves connecting to a HDMI monitor. The following is the procedure:\n  a) Refer to the ‘Check HDMI’ section in this link\n  b) Instead of the 5 commands given in the link given in a), you could try just this single command after connecting the HDMI:  1weston --connector=29  c) If b) doesn’t work, then use the following 5 commands everytime while connecting HDMI:  12345c:\\&gt;adb shellsh-4.4# mkdir -p /usr/bin/weston_socketsh-4.4# export XDG_RUNTIME_DIR=/usr/bin/weston_socketsh-4.4# export LD_LIBRARY_PATH=/usr/lib:/usr/lib/aarch64-linux-gnu/sh-4.4# weston --tty=1 --connector=29 --idle-time=0\n","dateCreated":"2022-02-13T17:12:21-08:00","dateModified":"2022-05-15T12:08:32-07:00","datePublished":"2022-02-13T17:12:21-08:00","description":"","headline":"(1) Bring Up RB5","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/02/13/1%20Basic%20Tutorials/bring-up-rb5/"},"publisher":{"@type":"Organization","name":"RB5 ROBOTICS TUTORIALS","sameAs":[],"image":"avl-letters.png","logo":{"@type":"ImageObject","url":"avl-letters.png"}},"url":"https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/02/13/1%20Basic%20Tutorials/bring-up-rb5/"}</script>
+    <meta name="description" content="We need to flash the Ubuntu 18.04 operating system to the RB5. The following steps comprise the process of flashing the OS to the board: a) Install adb and fastboot by using the following command in L">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="(1) Bring Up RB5">
 <meta property="og:url" content="https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/02/13/1%20Basic%20Tutorials/bring-up-rb5/index.html">
 <meta property="og:site_name" content="RB5 ROBOTICS TUTORIALS">
-<meta property="og:description" content="Coming soon.">
+<meta property="og:description" content="We need to flash the Ubuntu 18.04 operating system to the RB5. The following steps comprise the process of flashing the OS to the board: a) Install adb and fastboot by using the following command in L">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-02-14T01:12:21.000Z">
-<meta property="article:modified_time" content="2022-05-14T00:30:42.018Z">
+<meta property="article:modified_time" content="2022-05-15T19:08:32.283Z">
 <meta property="article:author" content="RB5 ROBOTICS TUTORIALS">
 <meta name="twitter:card" content="summary">
     
@@ -229,7 +229,7 @@
     
         <span>in </span>
         
-    <a class="category-link" href="/RB5_Robotics_Tutorials/categories/1-Basic-Tutorials/">1 Basic Tutorials</a>
+    <a class="category-link" href="/RB5_Robotics_Tutorials/categories/Basic-Tutorials/">Basic Tutorials</a>
 
 
     
@@ -241,7 +241,36 @@
     
     <div class="post-content markdown">
         <div class="main-content-wrap">
-            <p>Coming soon.</p>
+            <p>We need to flash the Ubuntu 18.04 operating system to the RB5. The following steps comprise the process of flashing the OS to the board:</p>
+<p>a) Install adb and fastboot by using the following command in Linux Terminal: </p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install android-tools-adb android-tools-fastboot</span><br></pre></td></tr></table></figure>
+
+<p>b) Download the Qualcomm Robotics SDK Manager from <a target="_blank" rel="noopener" href="https://www.thundercomm.com/product/qualcomm-robotics-rb5-development-kit/#sdk-manager">here</a></p>
+<p>c) The download should be a Zip file that contains the SDK Manager installation package and a Readme file. Follow the instructions in the Readme file to install the prerequisites.</p>
+<p>d) Install the SDK manager on the Linux workstation. Refer to the process given as step 2 in the following <a target="_blank" rel="noopener" href="https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/quick-start-guide/qualcomm_robotics_rb5_development_kit_bring_up/download-and-install-the-SDK-manager">link</a></p>
+<p>e) Before running the SDK manager, if you are using a Linux workstation, run the following command in the Terminal: </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl stop ModemManager</span><br></pre></td></tr></table></figure>
+
+<p>f) Run the SDK manager. Follow step 3 in the following <a target="_blank" rel="noopener" href="https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/quick-start-guide/qualcomm_robotics_rb5_development_kit_bring_up/download-and-install-the-SDK-manager">link</a></p>
+<p>g) Follow step 4 from the same <a target="_blank" rel="noopener" href="https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/quick-start-guide/qualcomm_robotics_rb5_development_kit_bring_up/download-and-install-the-SDK-manager">link</a> to download resources and generate system image. This could take slightly more than 30 minutes. </p>
+<p>h) Choose LU or LE flash. The LU flash has been tried before and flash was a success. This <a target="_blank" rel="noopener" href="https://developer.qualcomm.com/comment/18517">forum answer</a> is a possible explanation for the difference between LU and LE flash.</p>
+<p>i) Now, start the process of flashing the generated system images on the RB5 by following step 5 from the same <a target="_blank" rel="noopener" href="https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/quick-start-guide/qualcomm_robotics_rb5_development_kit_bring_up/download-and-install-the-SDK-manager">link</a></p>
+<p>j) Follow steps 1-3 from this <a target="_blank" rel="noopener" href="https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/quick-start-guide/qualcomm_robotics_rb5_development_kit_bring_up/flash-images">link</a> to continue and complete the flashing process successfully.</p>
+<p>k) If flashing is successful, adb should be working. To check this, keep your RB5 connected to your workstation and open your workstation’s terminal and type: </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell</span><br></pre></td></tr></table></figure>
+<p>and you should see a device ID shown as an attached device.</p>
+<p>l) If not, please power cycle the development kit. Since the system images are flashed, there is no need to press the F_DL key to force the device to enter the Emergency Download Mode.</p>
+<p>Once the OS is flashed, the next step involves setting up WiFi and SSH connections.<br>To set up WiFi connectivity on RB5, follow steps 1-4 from this <a target="_blank" rel="noopener" href="https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/quick-start-guide/qualcomm_robotics_rb5_development_kit_bring_up/set-up-network">link</a></p>
+<p>To access RB5 terminal, both adb shell or SSH can be used. To set up SSH connection:</p>
+<p>a) Type the following commands in a new terminal:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">adb shell  </span><br><span class="line">sh-4.4#ifconfig </span><br></pre></td></tr></table></figure>
+<p>The ‘ifconfig’ command gives you the IP address of your connection.<br>  Then use the following command:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh-4.4#ssh root@ &lt;IP address&gt;</span><br></pre></td></tr></table></figure>
+<p> This will ask you for a password, which is ‘oelinux123’</p>
+<p>This will successfully complete the SSH connection, through which you can remotely access the RB5 terminal.</p>
+<p>The next step involves connecting to a HDMI monitor. The following is the procedure:</p>
+<p>  a) Refer to the ‘Check HDMI’ section in this <a target="_blank" rel="noopener" href="https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/quick-start-guide/qualcomm_robotics_rb5_development_kit_bring_up/set-up-network">link</a></p>
+<p>  b) Instead of the 5 commands given in the link given in a), you could try just this single command after connecting the HDMI:<br>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">weston --connector=29</span><br></pre></td></tr></table></figure><br>  c) If b) doesn’t work, then use the following 5 commands everytime while connecting HDMI:<br>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">c:\&gt;adb shell</span><br><span class="line">sh-4.4# mkdir -p /usr/bin/weston_socket</span><br><span class="line">sh-4.4# export XDG_RUNTIME_DIR=/usr/bin/weston_socket</span><br><span class="line">sh-4.4# export LD_LIBRARY_PATH=/usr/lib:/usr/lib/aarch64-linux-gnu/</span><br><span class="line">sh-4.4# weston --tty=1 --connector=29 --idle-time=0</span><br></pre></td></tr></table></figure></p>
 
             
 
@@ -259,9 +288,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/RB5_Robotics_Tutorials/2022/02/15/3%20Deep%20Learning/object-detection-with-mobilenet/"
-                    data-tooltip="(1) Object Detection with MobileNet"
-                    aria-label="PREVIOUS: (1) Object Detection with MobileNet"
+                    href="/RB5_Robotics_Tutorials/2022/02/13/1%20Basic%20Tutorials/setup-gnome-desktop-on-rb5/"
+                    data-tooltip="(3) Setup Gnome Desktop on RB5"
+                    aria-label="PREVIOUS: (3) Setup Gnome Desktop on RB5"
                 >
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
@@ -273,9 +302,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/RB5_Robotics_Tutorials/2022/02/13/1%20Basic%20Tutorials/setup-gnome-desktop-on-rb5/"
-                    data-tooltip="(3) Setup Gnome Desktop on RB5"
-                    aria-label="NEXT: (3) Setup Gnome Desktop on RB5"
+                    href="/RB5_Robotics_Tutorials/2022/02/13/4.1%20Application%20ORB-SLAM3/orb-feature-slam/"
+                    data-tooltip="(2) ORB Feature SLAM"
+                    aria-label="NEXT: (2) ORB Feature SLAM"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -374,9 +403,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/RB5_Robotics_Tutorials/2022/02/15/3%20Deep%20Learning/object-detection-with-mobilenet/"
-                    data-tooltip="(1) Object Detection with MobileNet"
-                    aria-label="PREVIOUS: (1) Object Detection with MobileNet"
+                    href="/RB5_Robotics_Tutorials/2022/02/13/1%20Basic%20Tutorials/setup-gnome-desktop-on-rb5/"
+                    data-tooltip="(3) Setup Gnome Desktop on RB5"
+                    aria-label="PREVIOUS: (3) Setup Gnome Desktop on RB5"
                 >
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
@@ -388,9 +417,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/RB5_Robotics_Tutorials/2022/02/13/1%20Basic%20Tutorials/setup-gnome-desktop-on-rb5/"
-                    data-tooltip="(3) Setup Gnome Desktop on RB5"
-                    aria-label="NEXT: (3) Setup Gnome Desktop on RB5"
+                    href="/RB5_Robotics_Tutorials/2022/02/13/4.1%20Application%20ORB-SLAM3/orb-feature-slam/"
+                    data-tooltip="(2) ORB Feature SLAM"
+                    aria-label="NEXT: (2) ORB Feature SLAM"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
