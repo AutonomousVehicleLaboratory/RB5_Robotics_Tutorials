@@ -8,9 +8,11 @@ tags:
   - Sensor
 ---
 
-A few ways allow you to access the main camera from rb5. It cannot be read from OpenCV directly but a gstreamer can bridge the gap.
+A key sensor for many robotics applications is camera. It enables cool applications such as object detection, semantic segmentation and visual SLAM. There are two cameras on RB5.
 
-The easiest way to access camera is through a tcp port.
+This tutorial will tell you a few ways to access these cameras. Before we start, note that these cameras cannot be read from OpenCV directly but a tool called GStreamer can bridge the gap.
+
+The easiest way to access camera is through a tcp port created by GStreamer. Then you can use OpenCV to read data from the tcp port.
 
 On RB5, run the following command:
 
@@ -18,9 +20,16 @@ On RB5, run the following command:
 gst-launch-1.0 -e qtiqmmfsrc name=qmmf ! video/x-h264,format=NV12, width=1280, height=720,framerate=30/1 ! h264parse config-interval=1 ! mpegtsmux name=muxer ! queue ! tcpserversink port=8900 host=192.168.1.120
 ```
 
-Notice that you will need to change the host ip to your RB5 ip address.
+Note that you will need to change the host ip to your RB5 ip address. This can be done by running the following command.
 
-Then you can access the camera from opencv by
+```
+sudo apt install net-tools # if you don't have ifconfig
+ifconfig
+```
+
+The ip address of RB5 can be found after inet as something like 192.168.0.xxx.
+
+Then you can access the camera with the help of the OpenCV library. A python example is given below
 
 ```
 import cv2
