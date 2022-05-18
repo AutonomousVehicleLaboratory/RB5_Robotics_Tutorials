@@ -291,6 +291,75 @@
                     
                         <a
                             class="link-unstyled"
+                            href="/RB5_Robotics_Tutorials/2022/02/13/1%20Basic%20Tutorials/setup-gnome-desktop-on-rb5/"
+                            aria-label=": (3) Setup Gnome Desktop on RB5"
+                        >
+                            (3) Setup Gnome Desktop on RB5
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2022-02-13T17:12:21-08:00">
+	
+		    Feb 13, 2022
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/RB5_Robotics_Tutorials/categories/1-Basic-Tutorials/">1 Basic Tutorials</a>
+
+
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <p>Getting a gnome desktop is desirable for its more familiar to most of us compared to the default wayland desktop. </p>
+<p>To get the gnome desktop, you will need to unminimize the system first. The current system is a minimal ubuntu 18.04 server and you can unminimize it to add more tools.</p>
+<p>Then you can start install the gnome desktop by the following commands:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt install gdm3 tasksel</span><br><span class="line">tasksel install ubuntu-desktop</span><br></pre></td></tr></table></figure>
+
+<p>When this is done, you need to run the following command everytime you want to us the gnome desktop.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service gdm3 start</span><br></pre></td></tr></table></figure>
+
+<p>Notice that in order to successfully login to the gnome desktop, make use you choose the wayland for ubuntu in the login page, otherwise your username and password might not work.</p>
+<p>Notice that even we have this gnome desktop, many gui applications with x11 support might still not work. However, the gnome-terminal and RViz will work properly.</p>
+<p>Also, we do not recommand use this desktop because it takes a lot of computation (300-400% cpu!!!). It should only be used for visualization and debugging purpose for a short period of time.</p>
+<p>Reference:<br>[1] <a target="_blank" rel="noopener" href="https://linuxconfig.org/how-to-install-gnome-on-ubuntu-18-04-bionic-beaver-linux">https://linuxconfig.org/how-to-install-gnome-on-ubuntu-18-04-bionic-beaver-linux</a></p>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a
+                                href="/RB5_Robotics_Tutorials/2022/02/13/1%20Basic%20Tutorials/setup-gnome-desktop-on-rb5/#post-footer"
+                                class="postShorten-excerpt_link link"
+                                aria-label=""
+                            >
+                                Comment and share
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a
+                            class="link-unstyled"
                             href="/RB5_Robotics_Tutorials/2022/02/13/1%20Basic%20Tutorials/bring-up-rb5/"
                             aria-label=": (1) Bring Up RB5"
                         >
@@ -356,75 +425,6 @@
                         <p>
                             <a
                                 href="/RB5_Robotics_Tutorials/2022/02/13/1%20Basic%20Tutorials/bring-up-rb5/#post-footer"
-                                class="postShorten-excerpt_link link"
-                                aria-label=""
-                            >
-                                Comment and share
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a
-                            class="link-unstyled"
-                            href="/RB5_Robotics_Tutorials/2022/02/13/1%20Basic%20Tutorials/setup-gnome-desktop-on-rb5/"
-                            aria-label=": (3) Setup Gnome Desktop on RB5"
-                        >
-                            (3) Setup Gnome Desktop on RB5
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2022-02-13T17:12:21-08:00">
-	
-		    Feb 13, 2022
-    	
-    </time>
-    
-        <span>in </span>
-        
-    <a class="category-link" href="/RB5_Robotics_Tutorials/categories/1-Basic-Tutorials/">1 Basic Tutorials</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <p>Getting a gnome desktop is desirable for its more familiar to most of us compared to the default wayland desktop. </p>
-<p>To get the gnome desktop, you will need to unminimize the system first. The current system is a minimal ubuntu 18.04 server and you can unminimize it to add more tools.</p>
-<p>Then you can start install the gnome desktop by the following commands:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt install gdm3 tasksel</span><br><span class="line">tasksel install ubuntu-desktop</span><br></pre></td></tr></table></figure>
-
-<p>When this is done, you need to run the following command everytime you want to us the gnome desktop.</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service gdm3 start</span><br></pre></td></tr></table></figure>
-
-<p>Notice that in order to successfully login to the gnome desktop, make use you choose the wayland for ubuntu in the login page, otherwise your username and password might not work.</p>
-<p>Notice that even we have this gnome desktop, many gui applications with x11 support might still not work. However, the gnome-terminal and RViz will work properly.</p>
-<p>Also, we do not recommand use this desktop because it takes a lot of computation (300-400% cpu!!!). It should only be used for visualization and debugging purpose for a short period of time.</p>
-<p>Reference:<br>[1] <a target="_blank" rel="noopener" href="https://linuxconfig.org/how-to-install-gnome-on-ubuntu-18-04-bionic-beaver-linux">https://linuxconfig.org/how-to-install-gnome-on-ubuntu-18-04-bionic-beaver-linux</a></p>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a
-                                href="/RB5_Robotics_Tutorials/2022/02/13/1%20Basic%20Tutorials/setup-gnome-desktop-on-rb5/#post-footer"
                                 class="postShorten-excerpt_link link"
                                 aria-label=""
                             >
