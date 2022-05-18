@@ -1,10 +1,10 @@
 ---
 title: (3) Setup ORB_SLAM3 on RB5
 categories:
-  - 4.1 Application ORB-SLAM3
+  - 3 Robotics Applications
 tags:
   - SLAM Application
-date: 2022-02-13 17:12:21
+date: 2022-05-18 17:12:21
 ---
 
 This tutorial will guide you towards running ORB_SLAM3 on RB5.

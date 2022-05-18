@@ -1,8 +1,8 @@
 ---
-title: (2) Accessing Camera on RB5
+title: (1) Accessing Camera on RB5
 date: 2022-02-15 17:12:21
 categories:
-  - 1 Basic Tutorials
+  - 2 Accessing Devices
 tags:
   - Camera
   - Sensor

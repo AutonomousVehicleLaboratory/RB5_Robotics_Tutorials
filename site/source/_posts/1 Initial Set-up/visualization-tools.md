@@ -1,8 +1,8 @@
 ---
-title: (3) Setup Gnome Desktop on RB5
+title: (2) Visualization Tools
 categories:
-  - 1 Basic Tutorials
-date: 2022-02-13 17:12:21
+  - 1 Initial Set-up
+date: 2022-05-18 17:12:21
 tags:
 ---
 

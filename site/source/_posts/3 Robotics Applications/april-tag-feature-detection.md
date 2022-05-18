@@ -1,9 +1,9 @@
 ---
-title: (1) April Tag Feature Detection
+title: (2) April Tag Feature Detection
 tags:
   - Feature Detection
 categories:
-  - 4.2 Application GTSAM
+  - 3 Robotics Applications
 date: 2022-02-13 17:12:21
 ---
 
