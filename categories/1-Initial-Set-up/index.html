@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="RB5 ROBOTICS TUTORIALS">
-    <title>Archives: 2022/2 - RB5 ROBOTICS TUTORIALS</title>
+    <title>Category: 1 Initial Set-up - RB5 ROBOTICS TUTORIALS</title>
     <meta name="author" content="RB5 ROBOTICS TUTORIALS">
     
     
@@ -15,7 +15,7 @@
     <meta name="description" content="Some description for subtitle">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="RB5 ROBOTICS TUTORIALS">
-<meta property="og:url" content="https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/archives/2022/02/index.html">
+<meta property="og:url" content="https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/categories/1-Initial-Set-up/index.html">
 <meta property="og:site_name" content="RB5 ROBOTICS TUTORIALS">
 <meta property="og:description" content="Some description for subtitle">
 <meta property="og:locale" content="en_US">
@@ -217,23 +217,23 @@
                     
                         <a
                             class="link-unstyled"
-                            href="/RB5_Robotics_Tutorials/2022/02/15/2%20Accessing%20Devices/accessing-camera-on-rb5/"
-                            aria-label=": (1) Accessing Camera on RB5"
+                            href="/RB5_Robotics_Tutorials/2022/05/18/1%20Initial%20Set-up/visualization-tools/"
+                            aria-label=": (2) Visualization Tools"
                         >
-                            (1) Accessing Camera on RB5
+                            (2) Visualization Tools
                         </a>
                     
                 </h1>
                 <div class="postShorten-meta">
-    <time datetime="2022-02-15T17:12:21-08:00">
+    <time datetime="2022-05-18T17:12:21-07:00">
 	
-		    Feb 15, 2022
+		    May 18, 2022
     	
     </time>
     
         <span>in </span>
         
-    <a class="category-link" href="/RB5_Robotics_Tutorials/categories/2-Accessing-Devices/">2 Accessing Devices</a>
+    <a class="category-link" href="/RB5_Robotics_Tutorials/categories/1-Initial-Set-up/">1 Initial Set-up</a>
 
 
     
@@ -242,23 +242,18 @@
             </div>
             
                 <div class="postShorten-content">
-                    <p>A key sensor for many robotics applications is camera. It enables cool applications such as object detection, semantic segmentation and visual SLAM. There are two cameras on RB5.</p>
-<p>This tutorial will tell you a few ways to access these cameras. Before we start, note that these cameras cannot be read from OpenCV directly but a tool called GStreamer can bridge the gap.</p>
-<p>The easiest way to access camera is through a tcp port created by GStreamer. Then you can use OpenCV to read data from the tcp port.</p>
-<p>On RB5, run the following command:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gst-launch-1.0 -e qtiqmmfsrc name=qmmf ! video/x-h264,format=NV12, width=1280, height=720,framerate=30/1 ! h264parse config-interval=1 ! mpegtsmux name=muxer ! queue ! tcpserversink port=8900 host=192.168.1.120</span><br></pre></td></tr></table></figure>
+                    <p>Getting a gnome desktop is desirable for its more familiar to most of us compared to the default wayland desktop. </p>
+<p>To get the gnome desktop, you will need to unminimize the system first. The current system is a minimal ubuntu 18.04 server and you can unminimize it to add more tools.</p>
+<p>Then you can start install the gnome desktop by the following commands:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt install gdm3 tasksel</span><br><span class="line">tasksel install ubuntu-desktop</span><br></pre></td></tr></table></figure>
 
-<p>Note that you will need to change the host ip to your RB5 ip address. This can be done by running the following command.</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install net-tools # if you don&#x27;t have ifconfig</span><br><span class="line">ifconfig</span><br></pre></td></tr></table></figure>
+<p>When this is done, you need to run the following command everytime you want to us the gnome desktop.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service gdm3 start</span><br></pre></td></tr></table></figure>
 
-<p>The ip address of RB5 can be found after inet as something like 192.168.0.xxx.</p>
-<p>Then you can access the camera with the help of the OpenCV library. A python example is given below</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import cv2</span><br><span class="line"></span><br><span class="line">cap = cv2.VideoCapture(&quot;tcp://192.168.1.120:8900&quot;) #rb5 ip &amp; port (same from command)</span><br><span class="line">while(True):</span><br><span class="line">    ret, frame = cap.read()</span><br><span class="line">    cv2.imwrite(&quot;captured_image_opencv.jpg&quot;,frame)</span><br><span class="line">    # you can process image by using frame </span><br><span class="line">    break</span><br><span class="line">cap.release()</span><br></pre></td></tr></table></figure>
-
-<p>Again, make sure you change the host ip to your RB5 ip.</p>
-<p>Another way is to use the ROS package we provided both in ROS1 and ROS2.</p>
-<p>ROS1: <a target="_blank" rel="noopener" href="https://github.com/AutonomousVehicleLaboratory/rb5_ros/tree/main/rb5_vision">https://github.com/AutonomousVehicleLaboratory/rb5_ros/tree/main/rb5_vision</a><br>ROS2: <a target="_blank" rel="noopener" href="https://github.com/AutonomousVehicleLaboratory/rb5_ros2/tree/main/rb5_ros2_vision">https://github.com/AutonomousVehicleLaboratory/rb5_ros2/tree/main/rb5_ros2_vision</a></p>
-<p>Reference:<br>[1]: <a target="_blank" rel="noopener" href="https://developer.qualcomm.com/comment/18637#comment-18637">https://developer.qualcomm.com/comment/18637#comment-18637</a></p>
+<p>Notice that in order to successfully login to the gnome desktop, make use you choose the wayland for ubuntu in the login page, otherwise your username and password might not work.</p>
+<p>Notice that even we have this gnome desktop, many gui applications with x11 support might still not work. However, the gnome-terminal and RViz will work properly.</p>
+<p>Also, we do not recommand use this desktop because it takes a lot of computation (300-400% cpu!!!). It should only be used for visualization and debugging purpose for a short period of time.</p>
+<p>Reference:<br>[1] <a target="_blank" rel="noopener" href="https://linuxconfig.org/how-to-install-gnome-on-ubuntu-18-04-bionic-beaver-linux">https://linuxconfig.org/how-to-install-gnome-on-ubuntu-18-04-bionic-beaver-linux</a></p>
 
                     
                         
@@ -268,65 +263,7 @@
                     
                         <p>
                             <a
-                                href="/RB5_Robotics_Tutorials/2022/02/15/2%20Accessing%20Devices/accessing-camera-on-rb5/#post-footer"
-                                class="postShorten-excerpt_link link"
-                                aria-label=""
-                            >
-                                Comment and share
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a
-                            class="link-unstyled"
-                            href="/RB5_Robotics_Tutorials/2022/02/15/4%20ML%20at%20the%20Edge/object-detection-with-mobilenet/"
-                            aria-label=": (1) Object Detection with MobileNet"
-                        >
-                            (1) Object Detection with MobileNet
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2022-02-15T17:12:21-08:00">
-	
-		    Feb 15, 2022
-    	
-    </time>
-    
-        <span>in </span>
-        
-    <a class="category-link" href="/RB5_Robotics_Tutorials/categories/4-ML-at-the-Edge/">4 ML at the Edge</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <p>Coming soon.</p>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a
-                                href="/RB5_Robotics_Tutorials/2022/02/15/4%20ML%20at%20the%20Edge/object-detection-with-mobilenet/#post-footer"
+                                href="/RB5_Robotics_Tutorials/2022/05/18/1%20Initial%20Set-up/visualization-tools/#post-footer"
                                 class="postShorten-excerpt_link link"
                                 aria-label=""
                             >
@@ -414,64 +351,6 @@
                         <p>
                             <a
                                 href="/RB5_Robotics_Tutorials/2022/02/13/1%20Initial%20Set-up/bring-up-rb5/#post-footer"
-                                class="postShorten-excerpt_link link"
-                                aria-label=""
-                            >
-                                Comment and share
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a
-                            class="link-unstyled"
-                            href="/RB5_Robotics_Tutorials/2022/02/13/3%20Robotics%20Applications/april-tag-feature-detection/"
-                            aria-label=": (2) April Tag Feature Detection"
-                        >
-                            (2) April Tag Feature Detection
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2022-02-13T17:12:21-08:00">
-	
-		    Feb 13, 2022
-    	
-    </time>
-    
-        <span>in </span>
-        
-    <a class="category-link" href="/RB5_Robotics_Tutorials/categories/3-Robotics-Applications/">3 Robotics Applications</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <p>Coming soon.</p>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a
-                                href="/RB5_Robotics_Tutorials/2022/02/13/3%20Robotics%20Applications/april-tag-feature-detection/#post-footer"
                                 class="postShorten-excerpt_link link"
                                 aria-label=""
                             >
