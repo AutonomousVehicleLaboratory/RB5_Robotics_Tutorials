@@ -217,6 +217,149 @@
                     
                         <a
                             class="link-unstyled"
+                            href="/RB5_Robotics_Tutorials/2022/05/18/4%20ML%20at%20the%20Edge/DeepLabV3-using-TensorFlow/"
+                            aria-label=": (1) Running DeepLabV3 TensorFlow Model"
+                        >
+                            (1) Running DeepLabV3 TensorFlow Model
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2022-05-18T17:12:21-07:00">
+	
+		    May 18, 2022
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/RB5_Robotics_Tutorials/categories/4-ML-at-the-Edge/">4 ML at the Edge</a>
+
+
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <p>This tutorial explains the process of setting up the SNPE SDK and running inference on RB5 using a TensorFlow segmentation model. </p>
+<p>Note: This can be extended to any TensorFlow models</p>
+<h3 id="Running-Inference-on-Ubuntu-18-0-4"><a href="#Running-Inference-on-Ubuntu-18-0-4" class="headerlink" title="Running Inference on Ubuntu 18.0.4:"></a>Running Inference on Ubuntu 18.0.4:</h3><p>This section will guide you in setting up the SNPE on a Ubuntu system and running inference using the TensorFlow model for DeepLabV3</p>
+<ol>
+<li>Download pre-trained DeepLabV3 model trained using TensorFlow:</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget http://download.tensorflow.org/modelsdeeplabv3_mnv2_pascal_train_aug_2018_01_29.tar.gz</span><br><span class="line">tar -xzvf deeplabv3_mnv2_pascal_train_aug_2018_01_29.tar.gz</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>Setup Qualcomm Snapdragon Neural Processing Engine SDK on the system using the tutorial mentioned below.</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo snap install --classic android-studio #Android Studio installation is necessary for SNPE SDK to work</span><br><span class="line">https://developer.qualcomm.com/software/qualcomm-neural-processing-sdk/getting-started</span><br></pre></td></tr></table></figure>
+<p>Note: Make sure all the path variables are set properly according to the tutorial provided in the above links. Failing to set the paths will result in the following command to fail.</p>
+<ol start="3">
+<li>Convert the model to .dlc format using the following command</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">snpe-tensorflow-to-dlc --input_dim sub_7 1,513,513,3 --out_node ArgMax --input_network ./deeplabv3_mnv2_pascal_train_aug/frozen_inference_graph.pb</span><br></pre></td></tr></table></figure>
+<p>Note: The “.&#x2F;deeplabv3_mnv2_pascal_train_aug&#x2F;frozen_inference_graph.pb” is the downloaded TF model and the image size is set to 513x513x3 as an example</p>
+<ol start="4">
+<li>Running Inference:</li>
+</ol>
+<ul>
+<li><p>Preprocess the image using the Python script below. Example image is provided.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">import cv2</span><br><span class="line">from matplotlib import pyplot as plt</span><br><span class="line"></span><br><span class="line">frame = cv2.imread(&#x27;Example.jpeg&#x27;)</span><br><span class="line"># Resize frame with Required image size</span><br><span class="line">frame_resized = cv2.resize(frame,(513,513))</span><br><span class="line"># Pad smaller dimensions to Mean value &amp; Multiply with 0.007843</span><br><span class="line">blob = cv2.dnn.blobFromImage(frame_resized, 0.007843, (513, 513), (127.5, 127.5, 127.5), swapRB=True)</span><br><span class="line"></span><br><span class="line"># Making numpy array of required shape</span><br><span class="line">blob = np.reshape(blob, (1,513,513,3))</span><br><span class="line"></span><br><span class="line"># Storing to a raw file</span><br><span class="line">np.ndarray.tofile(blob, open(&#x27;blob.raw&#x27;,&#x27;w&#x27;) )</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Prepare a text file that contains all the images you would like to run inference on</p>
+<ul>
+<li>Create a file names “raw_list.txt” in the current directory</li>
+<li>Enter the path of the “blob.raw” file that was generated using the Python script</li>
+</ul>
+</li>
+<li><p>Run the following command to use the generated dlc model to run inference</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">snpe-net-run --container deeplabv3.dlc --input_list ./raw_list.txt</span><br></pre></td></tr></table></figure>
+<p>This command generates a file called “ArgMax:0.raw” in “&#x2F;output&#x2F;Result_0&#x2F;” path that will be used as an input to out model.</p>
+<ul>
+<li>Run the input below Python script to obtain the segmentation masks and modify the image</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import cv2</span><br><span class="line">import numpy as np</span><br><span class="line">from matplotlib import pyplot as plt</span><br><span class="line"></span><br><span class="line">arr = np.fromfile(open(&#x27;ArgMax:0.raw&#x27;, &#x27;r&#x27;), dtype=&quot;float32&quot;)</span><br><span class="line">arr = np.reshape(arr, (513,513,1))</span><br><span class="line">segment = arr[342:, 342:]</span><br><span class="line">arr[arr == 15] = 255</span><br><span class="line">original_img = cv2.imread(&#x27;deeplab-check.jpeg&#x27;)</span><br><span class="line">arr2=cv2.resize(segment,(original_img.shape[1], original_img.shape[0]))</span><br><span class="line">print(arr.shape)</span><br><span class="line">for i in range(arr2.shape[0]):</span><br><span class="line">    for j in range(arr2.shape[1]):</span><br><span class="line">        if (arr2[i][j] != 255):</span><br><span class="line">            original_img[i][j] = original_img[i][j][0] = original_img[i][j][1] = original_img[i][j][2]</span><br><span class="line">plt.imshow(original_img)</span><br><span class="line">plt.show()</span><br><span class="line">plt.imshow( arr, cmap=&quot;gray&quot;)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<h3 id="Running-Inference-on-RB5"><a href="#Running-Inference-on-RB5" class="headerlink" title="Running Inference on RB5:"></a>Running Inference on RB5:</h3><p>The SNPE SDK provides binaries for RB5’s architecture. To check out the list of supported architectures, run</p>
+<h4 id="On-Ubuntu"><a href="#On-Ubuntu" class="headerlink" title="On Ubuntu:"></a>On Ubuntu:</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd $SNPE_ROOT/lib #Ensure the path export from SNPE installation</span><br><span class="line">ls</span><br></pre></td></tr></table></figure>
+
+<p>For the Qualcomm RB5 platform, we are interested in in the following folders:</p>
+<ul>
+<li>aarch64-ubuntu-gcc7.5</li>
+<li>dsp</li>
+</ul>
+<p>These folders need to be copied over to the RB5 either by using “adb shell”, “adb push” or “scp” commands.</p>
+<ol>
+<li>Select the architecture aarch64-ubuntu-gcc7.5</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export SNPE_TARGET_ARCH=aarch64-ubuntu-gcc7.5</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>Push the binaries to target</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">adb shell &quot;mkdir -p /data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/bin&quot; # Creates a folder with the architecture&#x27;s name</span><br><span class="line">adb shell &quot;mkdir -p /data/local/tmp/snpeexample/dsp/lib&quot; #Creates lib folder to copy over the libraries to</span><br><span class="line">adb push $SNPE_ROOT/lib/$SNPE_TARGET_ARCH/*.so /data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/lib #Copy the architecture libraries</span><br><span class="line">adb push $SNPE_ROOT/lib/dsp/*.so  /data/local/tmp/snpeexample/dsp/lib</span><br><span class="line">adb push $SNPE_ROOT/bin/$SNPE_TARGET_ARCH/snpe-net-run /data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/bin</span><br></pre></td></tr></table></figure>
+
+<p>Once the libraries are copied over, log into RB5 using “adb shell” command or use a monitor(preferred as the final result involves visualizing)</p>
+<h4 id="On-RB5"><a href="#On-RB5" class="headerlink" title="On RB5:"></a>On RB5:</h4><ol>
+<li>Set tup the target architecture, library path and environment variables for “snpe-net-run” command to run successfully</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export SNPE_TARGET_ARCH=aarch64-ubuntu-gcc7.5</span><br><span class="line">export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/lib</span><br><span class="line">export PATH=$PATH:/data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/bin</span><br></pre></td></tr></table></figure>
+
+<p>Note: These commands need to be run everytime a new terminal is opened. To avoid this, add these commands in ~&#x2F;.bashrc file and run “source ~&#x2F;.bashrc”</p>
+<ol start="2">
+<li>Verify snpe-net-run copy</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">snpe-net-run -h #This command should run successfully and list the available options</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p>Copy the Python scripts and the “.dlc” file and the images from “Running Inference on Ubuntu 18.0.4” section to run inference</p>
+</li>
+<li><p>Follow Step 4 from the previous section to run inference. (Feel free to skip the blob.raw generation if it is already copied over)</p>
+</li>
+</ol>
+<p>Note: The inference step involves running “snpe-net-run”.</p>
+<p>Note: Once the masks are obtained, it can be used for any application. We have shown a simple background blur in this example.</p>
+<div class="figure " style="width:;"><img class="fig-img" src="Example.png" alt="Example Input Image"><span class="caption">Example Input Image</span></div>
+
+<div class="figure " style="width:;"><img class="fig-img" src="Mask.png" alt="Generated Mask"><span class="caption">Generated Mask</span></div>
+
+<div class="figure " style="width:;"><img class="fig-img" src="PostProcessed.png" alt="Post Processed Image"><span class="caption">Post Processed Image</span></div>
+
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a
+                                href="/RB5_Robotics_Tutorials/2022/05/18/4%20ML%20at%20the%20Edge/DeepLabV3-using-TensorFlow/#post-footer"
+                                class="postShorten-excerpt_link link"
+                                aria-label=""
+                            >
+                                Comment and share
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a
+                            class="link-unstyled"
                             href="/RB5_Robotics_Tutorials/2022/02/15/4%20ML%20at%20the%20Edge/object-detection-with-mobilenet/"
                             aria-label=": (1) Object Detection with MobileNet"
                         >
