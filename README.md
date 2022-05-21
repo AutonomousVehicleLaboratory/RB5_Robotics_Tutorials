@@ -25,6 +25,14 @@ Then, you can test your site locally or deploy it to github pages by the followi
 
 Clone the repository to your local environment and checkout the [hexo-source](https://github.com/AutonomousVehicleLaboratory/RB5_Robotics_Tutorials/tree/hexo-source) branch. Enter the site folder.
 
+Then you need to setup the npm pacakges for the theme that we are using. For this, enter the themes/tranquilpeak folder and run
+
+```
+npm install && npm run prod
+```
+
+Then return to the site folder.
+
 To run on a local server, run
 
 ```
