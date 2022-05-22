@@ -15,11 +15,13 @@ With the preliminaries completed, we will use the [Megabot Robot](https://store.
 
 Here we define a set of primitive actions that can control this four-mechanum-wheel robot. The set of primitive control actions include move `left`,`right`,`forward`, `in reverse`, rotate `clockwise`, `counter-clockwise`, and `stop`. Yes, it come as a surprise to many but the wheels on the robot contain a number of different rollers that ultimately influence the kinematics of the robot and jointly provide very interesting properties such as rotating in place and moving sideways!
 
-The forward and inverse kinematics of the robot can be described by Fig. 1 and Fig. 2, respectively.
+The forward and inverse kinematics of the robot can be described below.
 
- <img src="./control-example/forward.png" align="center" style="zoom:33%;" />
+ <img src="./control-example/forward.png" align="center" />
 
-<img src="./control-example/inverse.png" align="center" style="zoom:33%;" />
+<img src="./control-example/inverse.png" align="center" />
+
+
 
 ## ROS1 
 
