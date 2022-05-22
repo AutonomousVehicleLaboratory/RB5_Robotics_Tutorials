@@ -1,0 +1,70 @@
+---
+title: (4) Control - An example interface using the Megabot Robot
+tags:
+  - control
+  - usb
+  - rc car
+categories:
+  - 3 Robotics Applications
+date: 2022-05-22 17:12:21
+---
+
+As we describe in our previous tutorial on [building and loading kernel modules on the RB5](https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/18/2%20Accessing%20Devices/building-and-loading-kernel-modules/), the Ubuntu 18.04 installation that is part of the RB5 LU build includes minimal package support to reduce OS complexity. With this in mind, if we wish to install custom drivers, we need to perform the process described. Thankfully, if you have build and loaded the kernel modules described in our tutorial, you will be able to interface with a standard joystick controller over USB and serial over USB.
+
+With the preliminaries completed, we will use the [Megabot Robot](https://store.makeblock.com/products/makeblock-mbot-mega-robot-kit) as an example to interface with an RB5. In this case, we will use the `megapi` Python module designed for the Megabot to communite with the robot. This can be readily installed using `pip install megapi`.
+
+Here we define a set of primitive actions that can control this four-mechanum-wheel robot. The set of primitive control actions include move `left`,`right`,`forward`, `in reverse`, rotate `clockwise`, `counter-clockwise`, and `stop`. Yes, it come as a surprise to many but the wheels on the robot contain a number of different rollers that ultimately influence the kinematics of the robot and jointly provide very interesting properties such as rotating in place and moving sideways!
+
+The inverse kinematics of the robot can be described below.
+
+ <img src="./control-example/inverse.png" align="center" />
+
+
+
+For example, if we wish to make the robot move left without rotating (defining our reference frame as $+y$ (left) and $+x$ (up)), $v_x=0$ and $v_y=v$, this implies $[\omega_1, \omega_2, \omega_3, \omega_4]^\intercal = [-v, v, v, -v]^\intercal$
+
+## ROS1 
+
+Create a workspace, clone the ROS1 implementation, and build the package. Make sure ROS is in your path, i.e. `source /opt/ros/melodic/setup.bash`. 
+
+```
+mkdir -p rb5_ws/src && cd rb5_ws/src
+git clone https://github.com/AutonomousVehicleLaboratory/rb5_ros.git
+cd ..
+catkin_make
+source rb5_ws/devel/setup.bash 
+```
+
+Start the control node
+
+```
+ros run rb5_control rb5_mpi_control.py
+```
+
+
+
+## ROS2
+
+Create a workspace, clone the ROS2 implementation, and build the package. Make sure ROS is in your path, i.e. `source /opt/ros/dashing/setup.bash`. 
+
+```
+mkdir -p rb5_ws/src && cd rb5_ws/src
+git clone https://github.com/AutonomousVehicleLaboratory/rb5_ros2.git
+cd ..
+colcon build
+source rb5_ws/install/setup.bash 
+```
+
+Start the control node
+
+```
+ros2 run rb5_ros2_control rb5_mpi_control.py
+```
+
+
+
+
+
+
+### References
+
