@@ -15,13 +15,13 @@ With the preliminaries completed, we will use the [Megabot Robot](https://store.
 
 Here we define a set of primitive actions that can control this four-mechanum-wheel robot. The set of primitive control actions include move `left`,`right`,`forward`, `in reverse`, rotate `clockwise`, `counter-clockwise`, and `stop`. Yes, it come as a surprise to many but the wheels on the robot contain a number of different rollers that ultimately influence the kinematics of the robot and jointly provide very interesting properties such as rotating in place and moving sideways!
 
-The forward and inverse kinematics of the robot can be described below.
+The inverse kinematics of the robot can be described below.
 
- <img src="./control-example/forward.png" align="center" />
-
-<img src="./control-example/inverse.png" align="center" />
+ <img src="./control-example/inverse.png" align="center" />
 
 
+
+For example, if we wish to make the robot move left without rotating (defining our reference frame as $+y$ (left) and $+x$ (up)), $v_x=0$ and $v_y=v$, this implies $[\omega_1, \omega_2, \omega_3, \omega_4]^\intercal = [-v, v, v, -v]^\intercal$
 
 ## ROS1 
 
@@ -35,10 +35,10 @@ catkin_make
 source rb5_ws/devel/setup.bash 
 ```
 
-Start the AprilTag detection node
+Start the control node
 
 ```
-ros run april_detection april_detection_node
+ros run rb5_control rb5_mpi_control.py
 ```
 
 
@@ -55,22 +55,14 @@ colcon build
 source rb5_ws/install/setup.bash 
 ```
 
-Start the AprilTag detection node
+Start the control node
 
 ```
-ros2 run ros2_april_detection april_detection_node
+ros2 run rb5_ros2_control rb5_mpi_control.py
 ```
 
 
 
-## Visualizing the markers and poses
-
-
-
-[![AprilTag Detection in ROS](./apriltags/rviz.png)](https://youtu.be/qRoW6ljBfFo "AprilTag Detection in ROS") 
-
-<h6 align="center"> AprilTag3 detection and real-time 3D pose estimation running onboard of Qualcomm RB5. To play video, click on image.
-</h6> 
 
 
 
