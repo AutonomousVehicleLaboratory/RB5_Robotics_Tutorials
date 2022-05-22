@@ -623,9 +623,9 @@
                         <a
                             class="link-unstyled"
                             href="/RB5_Robotics_Tutorials/2022/05/18/4%20ML%20at%20the%20Edge/DeepLabV3-using-TensorFlow/"
-                            aria-label=": (1) Running DeepLabV3 TensorFlow Model"
+                            aria-label=": (1) Running DeepLabV3 Model"
                         >
-                            (1) Running DeepLabV3 TensorFlow Model
+                            (1) Running DeepLabV3 Model
                         </a>
                     
                 </h1>
@@ -647,9 +647,9 @@
             </div>
             
                 <div class="postShorten-content">
-                    <p>This tutorial explains the process of setting up the SNPE SDK and running inference on RB5 using a TensorFlow segmentation model. </p>
-<p>Note: This can be extended to any TensorFlow models</p>
-<h3 id="Running-Inference-on-Ubuntu-18-0-4"><a href="#Running-Inference-on-Ubuntu-18-0-4" class="headerlink" title="Running Inference on Ubuntu 18.0.4:"></a>Running Inference on Ubuntu 18.0.4:</h3><p>This section will guide you in setting up the SNPE on a Ubuntu system and running inference using the TensorFlow model for DeepLabV3</p>
+                    <p>This tutorial explains the process of setting up the SNPE SDK and running inference on RB5 using a TensorFlow and PyTorch segmentation model. </p>
+<p>Note: This can be extended to any Deep Learning models</p>
+<h2 id="TesnorFlow"><a href="#TesnorFlow" class="headerlink" title="TesnorFlow"></a>TesnorFlow</h2><h3 id="Running-Inference-on-Ubuntu-18-0-4"><a href="#Running-Inference-on-Ubuntu-18-0-4" class="headerlink" title="Running Inference on Ubuntu 18.0.4:"></a>Running Inference on Ubuntu 18.0.4:</h3><p>This section will guide you in setting up the SNPE on a Ubuntu system and running inference using the TensorFlow model for DeepLabV3</p>
 <ol>
 <li>Download pre-trained DeepLabV3 model trained using TensorFlow:</li>
 </ol>
@@ -661,11 +661,17 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo snap install --classic android-studio #Android Studio installation is necessary for SNPE SDK to work</span><br><span class="line">https://developer.qualcomm.com/software/qualcomm-neural-processing-sdk/getting-started</span><br></pre></td></tr></table></figure>
 <p>Note: Make sure all the path variables are set properly according to the tutorial provided in the above links. Failing to set the paths will result in the following command to fail.</p>
 <ol start="3">
+<li>Set the environment path for TensorFlow</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd $SNPE_ROOT</span><br><span class="line">export TENSORFLOW_DIR=&quot;your_tensorflow_installation_dir&quot;</span><br><span class="line">source bin/envsetup.sh -o $TENSORFLOW_DIR</span><br></pre></td></tr></table></figure>
+
+
+<ol start="4">
 <li>Convert the model to .dlc format using the following command</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">snpe-tensorflow-to-dlc --input_dim sub_7 1,513,513,3 --out_node ArgMax --input_network ./deeplabv3_mnv2_pascal_train_aug/frozen_inference_graph.pb</span><br></pre></td></tr></table></figure>
 <p>Note: The “.&#x2F;deeplabv3_mnv2_pascal_train_aug&#x2F;frozen_inference_graph.pb” is the downloaded TF model and the image size is set to 513x513x3 as an example</p>
-<ol start="4">
+<ol start="5">
 <li>Running Inference:</li>
 </ol>
 <ul>
@@ -727,6 +733,31 @@
 </ol>
 <p>Note: The inference step involves running “snpe-net-run”.</p>
 <p>Note: Once the masks are obtained, it can be used for any application. We have shown a simple background blur in this example.</p>
+<h2 id="PyTorch"><a href="#PyTorch" class="headerlink" title="PyTorch"></a>PyTorch</h2><p>A PyTorch model can be converted to dlc format to be run on RB5 as mentioned in the following sections. </p>
+<p>Important: PyTorch models need to be converted to ONNX before they are converted to dlc format.</p>
+<ol>
+<li>Run the following script to generate DeepLabV3 ONNX model. Here we use pre-trained DeepLabV3 model available in TorchHub</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import torch</span><br><span class="line">import torchvision</span><br><span class="line">BEST_MODEL_PATH_ONNX = &quot;deeplabv3_onnx_model.onnx&quot;</span><br><span class="line">#Load pre-trained Model</span><br><span class="line">model = torch.hub.load(&#x27;pytorch/vision:v0.7.0&#x27;, &#x27;deeplabv3_resnet50&#x27;, pretrained=True)</span><br><span class="line">model.eval()</span><br><span class="line">x = torch.randn(1, 3, 224, 224, requires_grad=True)</span><br><span class="line">y = model(x)</span><br><span class="line">torch_out = torch.onnx._export(model,                   # model being run</span><br><span class="line">                                x,                      # model input (or a tuple for multiple inputs)</span><br><span class="line">                                BEST_MODEL_PATH_ONNX,   # where to save the model (can be a file or file-like object)</span><br><span class="line">                                export_params=True,     # store the trained parameter weights inside the model file</span><br><span class="line">                                input_names=[&#x27;Conv2d0_3-64&#x27;],     # specify the name of input layer in onnx model</span><br><span class="line">                                output_names=[&#x27;Linear2_4096-2&#x27;])    # specify the name of output layer</span><br><span class="line">print(&quot;Successfully genereated ONNX model at &quot;,BEST_MODEL_PATH_ONNX)</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>Install ONNX on Ubuntu system</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install onnx</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>Set the environment path for ONNX</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd $SNPE_ROOT</span><br><span class="line">export ONNX_DIR=&quot;your_onnx_installation_dir&quot;</span><br><span class="line">source bin/envsetup.sh -o $ONNX_DIR</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>Run ONNX to DLC conversion command</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">snpe-onnx-to-dlc --input_dim sub_7 1,513,513,3 --out_node ArgMax --input_network /deeplabv3_onnx_model.onnx --output_path deeplab_pt.dlc</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>Once the dlc format is generated successfully, follow the “Running Inference” sections in TensorFlow section to run inference on both Ubuntu and RB5</li>
+</ol>
 <div class="figure " style="width:;"><img class="fig-img" src="Example.png" alt="Example Input Image"><span class="caption">Example Input Image</span></div>
 
 <div class="figure " style="width:;"><img class="fig-img" src="Mask.png" alt="Generated Mask"><span class="caption">Generated Mask</span></div>
