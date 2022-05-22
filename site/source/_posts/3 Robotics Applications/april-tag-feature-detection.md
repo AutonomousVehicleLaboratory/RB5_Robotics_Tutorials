@@ -13,7 +13,7 @@ AprilTags (shown in the figure below) are a form of fiducial markers that are de
 
 ![apriltags](./apriltags/apriltags.png)
 
-<h6 align="center">Multiple AprilTag fiducial markers detected within an image with IDs 7 and 237. For marker 7, an error is detected and corrected. $^1$ 
+<h6 align="center">Multiple AprilTag fiducial markers detected within an image with IDs 7 and 237. For marker 7, an error is detected and corrected. [1]
 </h6> 
 
 
@@ -127,6 +127,9 @@ ros2 run ros2_april_detection april_detection_node
 For convenience, our ROS implementations publish messages of type `geometry_msgs::PoseStamped` ([ROS1](http://docs.ros.org/en/melodic/api/geometry_msgs/html/msg/PoseStamped.html)) and `geometry_msgs::msg::PoseStamped` ([ROS2](https://docs.ros2.org/foxy/api/geometry_msgs/msg/PoseStamped.html)). These messages are timestamped and include a unique ID that corresponds to the marker ID as part of the message header. Nonetheless, the main component of each is message is the marker's pose in 3D which is represented as a position (a point) and orientation (here represented as a Quaternion). While we won't go into the math component on how Quaternions are utilized to represent orientations in 3D space, ROS has an good tools for handling transformation and can handle transformations with ease. Below is a video of each marker being visualized using the 3D visualization tool for ROS called RViz.
 
 [![AprilTag Detection in ROS](./apriltags/rviz.png)](https://youtu.be/qRoW6ljBfFo "AprilTag Detection in ROS") 
+
+<h6 align="center"> AprilTag3 detection and real-time 3D pose estimation running onboard of Qualcomm RB5. To play video, click on image.
+</h6> 
 
 
 
