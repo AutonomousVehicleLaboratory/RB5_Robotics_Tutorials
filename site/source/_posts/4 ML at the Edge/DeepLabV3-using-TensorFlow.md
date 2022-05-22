@@ -1,5 +1,5 @@
 ---
-title: (1) Running DeepLabV3 TensorFlow Model
+title: (1) Running DeepLabV3 Model
 categories:
   - 4 ML at the Edge
 tags:
@@ -7,9 +7,11 @@ tags:
 date: 2022-05-18 17:12:21
 ---
 
-This tutorial explains the process of setting up the SNPE SDK and running inference on RB5 using a TensorFlow segmentation model. 
+This tutorial explains the process of setting up the SNPE SDK and running inference on RB5 using a TensorFlow and PyTorch segmentation model. 
 
-Note: This can be extended to any TensorFlow models
+Note: This can be extended to any Deep Learning models
+
+## TesnorFlow
 
 ### Running Inference on Ubuntu 18.0.4:
 
@@ -30,15 +32,23 @@ https://developer.qualcomm.com/software/qualcomm-neural-processing-sdk/getting-s
 ```
 Note: Make sure all the path variables are set properly according to the tutorial provided in the above links. Failing to set the paths will result in the following command to fail.
 
+3. Set the environment path for TensorFlow
 
-3. Convert the model to .dlc format using the following command 
+```
+cd $SNPE_ROOT
+export TENSORFLOW_DIR="your_tensorflow_installation_dir"
+source bin/envsetup.sh -o $TENSORFLOW_DIR
+```
+
+
+4. Convert the model to .dlc format using the following command 
 
 ```
 snpe-tensorflow-to-dlc --input_dim sub_7 1,513,513,3 --out_node ArgMax --input_network ./deeplabv3_mnv2_pascal_train_aug/frozen_inference_graph.pb
 ```
 Note: The "./deeplabv3_mnv2_pascal_train_aug/frozen_inference_graph.pb" is the downloaded TF model and the image size is set to 513x513x3 as an example
 
-4. Running Inference:
+5. Running Inference:
 - Preprocess the image using the Python script below. Example image is provided.
 ```
 import numpy as np
@@ -151,6 +161,54 @@ snpe-net-run -h #This command should run successfully and list the available opt
 Note: The inference step involves running "snpe-net-run".
 
 Note: Once the masks are obtained, it can be used for any application. We have shown a simple background blur in this example.
+
+## PyTorch
+
+A PyTorch model can be converted to dlc format to be run on RB5 as mentioned in the following sections. 
+
+Important: PyTorch models need to be converted to ONNX before they are converted to dlc format.
+
+1. Run the following script to generate DeepLabV3 ONNX model. Here we use pre-trained DeepLabV3 model available in TorchHub
+
+```
+import torch
+import torchvision
+BEST_MODEL_PATH_ONNX = "deeplabv3_onnx_model.onnx"
+#Load pre-trained Model
+model = torch.hub.load('pytorch/vision:v0.7.0', 'deeplabv3_resnet50', pretrained=True)
+model.eval()
+x = torch.randn(1, 3, 224, 224, requires_grad=True)
+y = model(x)
+torch_out = torch.onnx._export(model,                   # model being run
+                                x,                      # model input (or a tuple for multiple inputs)
+                                BEST_MODEL_PATH_ONNX,   # where to save the model (can be a file or file-like object)
+                                export_params=True,     # store the trained parameter weights inside the model file
+                                input_names=['Conv2d0_3-64'],     # specify the name of input layer in onnx model
+                                output_names=['Linear2_4096-2'])    # specify the name of output layer
+print("Successfully genereated ONNX model at ",BEST_MODEL_PATH_ONNX)
+```
+
+2. Install ONNX on Ubuntu system
+
+```
+pip install onnx
+```
+
+3. Set the environment path for ONNX
+
+```
+cd $SNPE_ROOT
+export ONNX_DIR="your_onnx_installation_dir"
+source bin/envsetup.sh -o $ONNX_DIR
+```
+
+4. Run ONNX to DLC conversion command
+
+```
+snpe-onnx-to-dlc --input_dim sub_7 1,513,513,3 --out_node ArgMax --input_network /deeplabv3_onnx_model.onnx --output_path deeplab_pt.dlc
+```
+
+5. Once the dlc format is generated successfully, follow the "Running Inference" sections in TensorFlow section to run inference on both Ubuntu and RB5
 
 {% image Example.png Example Input Image %}
 
