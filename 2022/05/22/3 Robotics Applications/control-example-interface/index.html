@@ -6,23 +6,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="RB5 ROBOTICS TUTORIALS">
-    <title>(2) Visualization Tools - RB5 ROBOTICS TUTORIALS</title>
+    <title>(4) Control - An example interface using the Megabot Robot - RB5 ROBOTICS TUTORIALS</title>
     <meta name="author" content="RB5 ROBOTICS TUTORIALS">
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"RB5 ROBOTICS TUTORIALS","sameAs":[],"image":"avl-letters.png"},"articleBody":"Getting a gnome desktop is desirable for its more familiar to most of us compared to the default wayland desktop. \nTo get the gnome desktop, you will need to unminimize the system first. The current system is a minimal ubuntu 18.04 server and you can unminimize it to add more tools.\nThen you can start install the gnome desktop by the following commands:\n12apt install gdm3 taskseltasksel install ubuntu-desktop\n\nWhen this is done, you need to run the following command everytime you want to us the gnome desktop.\n1service gdm3 start\n\nNotice that in order to successfully login to the gnome desktop, make use you choose the wayland for ubuntu in the login page, otherwise your username and password might not work.\nNotice that even we have this gnome desktop, many gui applications with x11 support might still not work. However, the gnome-terminal and RViz will work properly.\nAlso, we do not recommand use this desktop because it takes a lot of computation (300-400% cpu!!!). It should only be used for visualization and debugging purpose for a short period of time.\nReference:[1] https://linuxconfig.org/how-to-install-gnome-on-ubuntu-18-04-bionic-beaver-linux\n","dateCreated":"2022-05-18T17:12:21-07:00","dateModified":"2022-05-18T12:05:53-07:00","datePublished":"2022-05-18T17:12:21-07:00","description":"","headline":"(2) Visualization Tools","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/18/1%20Initial%20Set-up/visualization-tools/"},"publisher":{"@type":"Organization","name":"RB5 ROBOTICS TUTORIALS","sameAs":[],"image":"avl-letters.png","logo":{"@type":"ImageObject","url":"avl-letters.png"}},"url":"https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/18/1%20Initial%20Set-up/visualization-tools/"}</script>
-    <meta name="description" content="Getting a gnome desktop is desirable for its more familiar to most of us compared to the default wayland desktop.  To get the gnome desktop, you will need to unminimize the system first. The current s">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"RB5 ROBOTICS TUTORIALS","sameAs":[],"image":"avl-letters.png"},"articleBody":"As we describe in our previous tutorial on building and loading kernel modules on the RB5, the Ubuntu 18.04 installation that is part of the RB5 LU build includes minimal package support to reduce OS complexity. With this in mind, if we wish to install custom drivers, we need to perform the process described. Thankfully, if you have build and loaded the kernel modules described in our tutorial, you will be able to interface with a standard joystick controller over USB and serial over USB.\nWith the preliminaries completed, we will use the Megabot Robot as an example to interface with an RB5. In this case, we will use the megapi Python module designed for the Megabot to communite with the robot. This can be readily installed using pip install megapi.\nHere we define a set of primitive actions that can control this four-mechanum-wheel robot. The set of primitive control actions include move left,right,forward, in reverse, rotate clockwise, counter-clockwise, and stop. Yes, it come as a surprise to many but the wheels on the robot contain a number of different rollers that ultimately influence the kinematics of the robot and jointly provide very interesting properties such as rotating in place and moving sideways!\nThe inverse kinematics of the robot can be described below.\n \n\n\n\nFor example, if we wish to make the robot move left without rotating (defining our reference frame as $+y$ (left) and $+x$ (up)), $v_x&#x3D;0$ and $v_y&#x3D;v$, this implies $[\\omega_1, \\omega_2, \\omega_3, \\omega_4]^\\intercal &#x3D; [-v, v, v, -v]^\\intercal$\nROS1Create a workspace, clone the ROS1 implementation, and build the package. Make sure ROS is in your path, i.e. source /opt/ros/melodic/setup.bash. \n12345mkdir -p rb5_ws/src &amp;&amp; cd rb5_ws/srcgit clone https://github.com/AutonomousVehicleLaboratory/rb5_ros.gitcd ..catkin_makesource rb5_ws/devel/setup.bash \n\nStart the control node\n1ros run rb5_control rb5_mpi_control.py\n\n\n\nROS2Create a workspace, clone the ROS2 implementation, and build the package. Make sure ROS is in your path, i.e. source /opt/ros/dashing/setup.bash. \n12345mkdir -p rb5_ws/src &amp;&amp; cd rb5_ws/srcgit clone https://github.com/AutonomousVehicleLaboratory/rb5_ros2.gitcd ..colcon buildsource rb5_ws/install/setup.bash \n\nStart the control node\n1ros2 run rb5_ros2_control rb5_mpi_control.py\n\n\n\n\n\n\nReferences","dateCreated":"2022-05-22T17:12:21-07:00","dateModified":"2022-05-22T11:16:02-07:00","datePublished":"2022-05-22T17:12:21-07:00","description":"","headline":"(4) Control - An example interface using the Megabot Robot","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/22/3%20Robotics%20Applications/control-example-interface/"},"publisher":{"@type":"Organization","name":"RB5 ROBOTICS TUTORIALS","sameAs":[],"image":"avl-letters.png","logo":{"@type":"ImageObject","url":"avl-letters.png"}},"url":"https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/22/3%20Robotics%20Applications/control-example-interface/","keywords":"control, usb, rc car"}</script>
+    <meta name="description" content="As we describe in our previous tutorial on building and loading kernel modules on the RB5, the Ubuntu 18.04 installation that is part of the RB5 LU build includes minimal package support to reduce OS">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="(2) Visualization Tools">
-<meta property="og:url" content="https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/18/1%20Initial%20Set-up/visualization-tools/index.html">
+<meta property="og:title" content="(4) Control - An example interface using the Megabot Robot">
+<meta property="og:url" content="https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/22/3%20Robotics%20Applications/control-example-interface/index.html">
 <meta property="og:site_name" content="RB5 ROBOTICS TUTORIALS">
-<meta property="og:description" content="Getting a gnome desktop is desirable for its more familiar to most of us compared to the default wayland desktop.  To get the gnome desktop, you will need to unminimize the system first. The current s">
+<meta property="og:description" content="As we describe in our previous tutorial on building and loading kernel modules on the RB5, the Ubuntu 18.04 installation that is part of the RB5 LU build includes minimal package support to reduce OS">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-05-19T00:12:21.000Z">
-<meta property="article:modified_time" content="2022-05-18T19:05:53.925Z">
+<meta property="og:image" content="https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/22/3%20Robotics%20Applications/control-example-interface/control-example/inverse.png">
+<meta property="article:published_time" content="2022-05-23T00:12:21.000Z">
+<meta property="article:modified_time" content="2022-05-22T18:16:02.969Z">
 <meta property="article:author" content="RB5 ROBOTICS TUTORIALS">
+<meta property="article:tag" content="control">
+<meta property="article:tag" content="usb">
+<meta property="article:tag" content="rc car">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/22/3%20Robotics%20Applications/control-example-interface/control-example/inverse.png">
     
     
         
@@ -216,20 +221,20 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title">
-            (2) Visualization Tools
+            (4) Control - An example interface using the Megabot Robot
         </h1>
     
     
         <div class="post-meta">
-    <time datetime="2022-05-18T17:12:21-07:00">
+    <time datetime="2022-05-22T17:12:21-07:00">
 	
-		    May 18, 2022
+		    May 22, 2022
     	
     </time>
     
         <span>in </span>
         
-    <a class="category-link" href="/RB5_Robotics_Tutorials/categories/1-Initial-Set-up/">1 Initial Set-up</a>
+    <a class="category-link" href="/RB5_Robotics_Tutorials/categories/3-Robotics-Applications/">3 Robotics Applications</a>
 
 
     
@@ -241,19 +246,35 @@
     
     <div class="post-content markdown">
         <div class="main-content-wrap">
-            <p>Getting a gnome desktop is desirable for its more familiar to most of us compared to the default wayland desktop. </p>
-<p>To get the gnome desktop, you will need to unminimize the system first. The current system is a minimal ubuntu 18.04 server and you can unminimize it to add more tools.</p>
-<p>Then you can start install the gnome desktop by the following commands:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt install gdm3 tasksel</span><br><span class="line">tasksel install ubuntu-desktop</span><br></pre></td></tr></table></figure>
+            <p>As we describe in our previous tutorial on <a href="https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/18/2%20Accessing%20Devices/building-and-loading-kernel-modules/">building and loading kernel modules on the RB5</a>, the Ubuntu 18.04 installation that is part of the RB5 LU build includes minimal package support to reduce OS complexity. With this in mind, if we wish to install custom drivers, we need to perform the process described. Thankfully, if you have build and loaded the kernel modules described in our tutorial, you will be able to interface with a standard joystick controller over USB and serial over USB.</p>
+<p>With the preliminaries completed, we will use the <a target="_blank" rel="noopener" href="https://store.makeblock.com/products/makeblock-mbot-mega-robot-kit">Megabot Robot</a> as an example to interface with an RB5. In this case, we will use the <code>megapi</code> Python module designed for the Megabot to communite with the robot. This can be readily installed using <code>pip install megapi</code>.</p>
+<p>Here we define a set of primitive actions that can control this four-mechanum-wheel robot. The set of primitive control actions include move <code>left</code>,<code>right</code>,<code>forward</code>, <code>in reverse</code>, rotate <code>clockwise</code>, <code>counter-clockwise</code>, and <code>stop</code>. Yes, it come as a surprise to many but the wheels on the robot contain a number of different rollers that ultimately influence the kinematics of the robot and jointly provide very interesting properties such as rotating in place and moving sideways!</p>
+<p>The inverse kinematics of the robot can be described below.</p>
+ <img src="./control-example/inverse.png" align="center" />
 
-<p>When this is done, you need to run the following command everytime you want to us the gnome desktop.</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service gdm3 start</span><br></pre></td></tr></table></figure>
 
-<p>Notice that in order to successfully login to the gnome desktop, make use you choose the wayland for ubuntu in the login page, otherwise your username and password might not work.</p>
-<p>Notice that even we have this gnome desktop, many gui applications with x11 support might still not work. However, the gnome-terminal and RViz will work properly.</p>
-<p>Also, we do not recommand use this desktop because it takes a lot of computation (300-400% cpu!!!). It should only be used for visualization and debugging purpose for a short period of time.</p>
-<p>Reference:<br>[1] <a target="_blank" rel="noopener" href="https://linuxconfig.org/how-to-install-gnome-on-ubuntu-18-04-bionic-beaver-linux">https://linuxconfig.org/how-to-install-gnome-on-ubuntu-18-04-bionic-beaver-linux</a></p>
 
+<p>For example, if we wish to make the robot move left without rotating (defining our reference frame as $+y$ (left) and $+x$ (up)), $v_x&#x3D;0$ and $v_y&#x3D;v$, this implies $[\omega_1, \omega_2, \omega_3, \omega_4]^\intercal &#x3D; [-v, v, v, -v]^\intercal$</p>
+<h2 id="ROS1"><a href="#ROS1" class="headerlink" title="ROS1"></a>ROS1</h2><p>Create a workspace, clone the ROS1 implementation, and build the package. Make sure ROS is in your path, i.e. <code>source /opt/ros/melodic/setup.bash</code>. </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p rb5_ws/src &amp;&amp; cd rb5_ws/src</span><br><span class="line">git clone https://github.com/AutonomousVehicleLaboratory/rb5_ros.git</span><br><span class="line">cd ..</span><br><span class="line">catkin_make</span><br><span class="line">source rb5_ws/devel/setup.bash </span><br></pre></td></tr></table></figure>
+
+<p>Start the control node</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros run rb5_control rb5_mpi_control.py</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="ROS2"><a href="#ROS2" class="headerlink" title="ROS2"></a>ROS2</h2><p>Create a workspace, clone the ROS2 implementation, and build the package. Make sure ROS is in your path, i.e. <code>source /opt/ros/dashing/setup.bash</code>. </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p rb5_ws/src &amp;&amp; cd rb5_ws/src</span><br><span class="line">git clone https://github.com/AutonomousVehicleLaboratory/rb5_ros2.git</span><br><span class="line">cd ..</span><br><span class="line">colcon build</span><br><span class="line">source rb5_ws/install/setup.bash </span><br></pre></td></tr></table></figure>
+
+<p>Start the control node</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 run rb5_ros2_control rb5_mpi_control.py</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3>
             
 
 
@@ -261,20 +282,24 @@
     </div>
     <div id="post-footer" class="post-footer main-content-wrap">
         
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/RB5_Robotics_Tutorials/tags/control/" rel="tag">control</a> <a class="tag tag--primary tag--small t-none-link" href="/RB5_Robotics_Tutorials/tags/rc-car/" rel="tag">rc car</a> <a class="tag tag--primary tag--small t-none-link" href="/RB5_Robotics_Tutorials/tags/usb/" rel="tag">usb</a>
+
+            </div>
+        
         
             <div class="post-actions-wrap">
     <nav>
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/RB5_Robotics_Tutorials/2022/05/21/3%20Robotics%20Applications/ros-installation/"
-                    data-tooltip="(1) ROS Installation"
-                    aria-label="PREVIOUS: (1) ROS Installation"
-                >
-                    
+                    <a
+                        class="post-action-btn btn btn--disabled"
+                        aria-hidden="true"
+                    >
+                        
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
                     </a>
@@ -284,9 +309,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/RB5_Robotics_Tutorials/2022/05/18/2%20Accessing%20Devices/building-and-loading-kernel-modules/"
-                    data-tooltip="(2) Building and Loading Kernel Modules"
-                    aria-label="NEXT: (2) Building and Loading Kernel Modules"
+                    href="/RB5_Robotics_Tutorials/2022/05/21/3%20Robotics%20Applications/ros-installation/"
+                    data-tooltip="(1) ROS Installation"
+                    aria-label="NEXT: (1) ROS Installation"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -311,7 +336,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/18/1%20Initial%20Set-up/visualization-tools/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/22/3%20Robotics%20Applications/control-example-interface/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -324,7 +349,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/18/1%20Initial%20Set-up/visualization-tools/"
+                    target="new" href="https://twitter.com/intent/tweet?text=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/22/3%20Robotics%20Applications/control-example-interface/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -337,7 +362,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/18/1%20Initial%20Set-up/visualization-tools/"
+                    target="new" href="https://plus.google.com/share?url=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/22/3%20Robotics%20Applications/control-example-interface/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -382,14 +407,11 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/RB5_Robotics_Tutorials/2022/05/21/3%20Robotics%20Applications/ros-installation/"
-                    data-tooltip="(1) ROS Installation"
-                    aria-label="PREVIOUS: (1) ROS Installation"
-                >
-                    
+                    <a
+                        class="post-action-btn btn btn--disabled"
+                        aria-hidden="true"
+                    >
+                        
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
                     </a>
@@ -399,9 +421,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/RB5_Robotics_Tutorials/2022/05/18/2%20Accessing%20Devices/building-and-loading-kernel-modules/"
-                    data-tooltip="(2) Building and Loading Kernel Modules"
-                    aria-label="NEXT: (2) Building and Loading Kernel Modules"
+                    href="/RB5_Robotics_Tutorials/2022/05/21/3%20Robotics%20Applications/ros-installation/"
+                    data-tooltip="(1) ROS Installation"
+                    aria-label="NEXT: (1) ROS Installation"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -426,7 +448,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/18/1%20Initial%20Set-up/visualization-tools/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/22/3%20Robotics%20Applications/control-example-interface/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -439,7 +461,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/18/1%20Initial%20Set-up/visualization-tools/"
+                    target="new" href="https://twitter.com/intent/tweet?text=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/22/3%20Robotics%20Applications/control-example-interface/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -452,7 +474,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/18/1%20Initial%20Set-up/visualization-tools/"
+                    target="new" href="https://plus.google.com/share?url=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/22/3%20Robotics%20Applications/control-example-interface/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -486,7 +508,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://www.facebook.com/sharer/sharer.php?u=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/18/1%20Initial%20Set-up/visualization-tools/"
+                        href="https://www.facebook.com/sharer/sharer.php?u=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/22/3%20Robotics%20Applications/control-example-interface/"
                         aria-label="Share on Facebook"
                     >
                         <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
@@ -499,7 +521,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://twitter.com/intent/tweet?text=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/18/1%20Initial%20Set-up/visualization-tools/"
+                        href="https://twitter.com/intent/tweet?text=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/22/3%20Robotics%20Applications/control-example-interface/"
                         aria-label="Share on Twitter"
                     >
                         <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
@@ -512,7 +534,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://plus.google.com/share?url=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/18/1%20Initial%20Set-up/visualization-tools/"
+                        href="https://plus.google.com/share?url=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/22/3%20Robotics%20Applications/control-example-interface/"
                         aria-label="Share on Google+"
                     >
                         <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
