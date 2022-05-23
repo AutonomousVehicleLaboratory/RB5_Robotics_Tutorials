@@ -5,7 +5,10 @@ categories:
 date: 2022-02-13 17:12:21
 tags:
 ---
-We need to flash the Ubuntu 18.04 operating system to the RB5. The following steps comprise the process of flashing the OS to the board:
+
+RB5 is a powerful edge computing device for robotics applications. Before we can use it to drive cool applications, we need to flash an operating system into it. In this tutorial, we will show you how to set up Ubuntu 18.04 on RB5, connect it to WiFi to enable SSH and config HDMI display. We enhanced the [official setup guide](https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/quick-start-guide/qualcomm_robotics_rb5_development_kit_bring_up) with some additional tips. The setup steps requires a computer with Ubuntu operating system. 
+
+## Install Ubuntu 18.04 on RB5
 
 a) Install adb and fastboot by using the following command in Linux Terminal: 
 
@@ -13,13 +16,13 @@ a) Install adb and fastboot by using the following command in Linux Terminal:
   sudo apt-get install android-tools-adb android-tools-fastboot
   ```
 
-b) Download the Qualcomm Robotics SDK Manager from [here](https://www.thundercomm.com/product/qualcomm-robotics-rb5-development-kit/#sdk-manager)
+b) Download the Qualcomm Robotics SDK Manager from [here](https://www.thundercomm.com/product/qualcomm-robotics-rb5-development-kit/#sdk-manager). You will need to create an account for this.
 
 c) The download should be a Zip file that contains the SDK Manager installation package and a Readme file. Follow the instructions in the Readme file to install the prerequisites.
 
 d) Install the SDK manager on the Linux workstation. Refer to the process given as step 2 in the following [link](https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/quick-start-guide/qualcomm_robotics_rb5_development_kit_bring_up/download-and-install-the-SDK-manager)
 
-e) Before running the SDK manager, if you are using a Linux workstation, run the following command in the Terminal: 
+e) __Before running the SDK manager, if you are using a Linux workstation, run the following command in the Terminal__: 
 ```
 sudo systemctl stop ModemManager
 ```
@@ -42,6 +45,8 @@ and you should see a device ID shown as an attached device.
 
 l) If not, please power cycle the development kit. Since the system images are flashed, there is no need to press the F_DL key to force the device to enter the Emergency Download Mode.
 
+## Setup WiFi and SSH
+
 Once the OS is flashed, the next step involves setting up WiFi and SSH connections.
 To set up WiFi connectivity on RB5, follow steps 1-4 from this [link](https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/quick-start-guide/qualcomm_robotics_rb5_development_kit_bring_up/set-up-network)
 
@@ -61,11 +66,13 @@ The 'ifconfig' command gives you the IP address of your connection.
   
 This will successfully complete the SSH connection, through which you can remotely access the RB5 terminal.
   
-The next step involves connecting to a HDMI monitor. The following is the procedure:
+## HDMI Display
+
+The next step involves connecting to an HDMI monitor. The following is the procedure:
 
   a) Refer to the 'Check HDMI' section in this [link](https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/quick-start-guide/qualcomm_robotics_rb5_development_kit_bring_up/set-up-network)
   
-  b) Instead of the 5 commands given in the link given in a), you could try just this single command after connecting the HDMI: 
+  b) __Instead of the 5 commands given in the link given in a), you could try just this single command after connecting the HDMI__: 
   ```
   weston --connector=29
   ```
