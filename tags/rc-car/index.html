@@ -246,8 +246,7 @@
 <p>With the preliminaries completed, we will use the <a target="_blank" rel="noopener" href="https://store.makeblock.com/products/makeblock-mbot-mega-robot-kit">Megabot Robot</a> as an example to interface with an RB5. In this case, we will use the <code>megapi</code> Python module designed for the Megabot to communite with the robot. This can be readily installed using <code>pip install megapi</code>.</p>
 <p>Here we define a set of primitive actions that can control this four-mechanum-wheel robot. The set of primitive control actions include move <code>left</code>,<code>right</code>,<code>forward</code>, <code>in reverse</code>, rotate <code>clockwise</code>, <code>counter-clockwise</code>, and <code>stop</code>. Yes, it come as a surprise to many but the wheels on the robot contain a number of different rollers that ultimately influence the kinematics of the robot and jointly provide very interesting properties such as rotating in place and moving sideways!</p>
 <p>The inverse kinematics of the robot can be described below.</p>
- <img src="./control-example/inverse.png" align="center" />
-
+<div class="figure " style="width:;"><img class="fig-img" src="inverse.png" alt="Inverse kinematics"><span class="caption">Inverse kinematics</span></div>
 
 
 <p>The following code snippet implements the control conditions for each of the actions defined. </p>
