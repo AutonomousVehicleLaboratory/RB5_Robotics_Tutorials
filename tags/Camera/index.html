@@ -258,6 +258,20 @@
 <p>Again, make sure you change the host ip to your RB5 ip.</p>
 <p>Another way is to use the ROS package we provided both in ROS1 and ROS2.</p>
 <p>ROS1: <a target="_blank" rel="noopener" href="https://github.com/AutonomousVehicleLaboratory/rb5_ros/tree/main/rb5_vision">https://github.com/AutonomousVehicleLaboratory/rb5_ros/tree/main/rb5_vision</a><br>ROS2: <a target="_blank" rel="noopener" href="https://github.com/AutonomousVehicleLaboratory/rb5_ros2/tree/main/rb5_ros2_vision">https://github.com/AutonomousVehicleLaboratory/rb5_ros2/tree/main/rb5_ros2_vision</a></p>
+<p>We provided launch file for both ROS and ROS2 packages so that it is easy to config the camera node.</p>
+<p>For example, you can run the RGB camera by</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">roslaunch rb5_vision rb_camera_main_ocv.launch</span><br></pre></td></tr></table></figure>
+
+<p>This will publish images to the topic &#x2F;camera_0.</p>
+<p>Similarly, you can run the tracking camera by</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">roslaunch rb5_vision rb_camera_side_ocv.launch</span><br></pre></td></tr></table></figure>
+
+<p>And this will publish images to the topic &#x2F;camera_1.</p>
+<p>For ROS2, the command will be</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 launch rb5_ros2_vision rb_camera_main_ocv_launch.py</span><br></pre></td></tr></table></figure>
+<p>and </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 launch rb5_ros2_vision rb_camera_side_ocv_launch.py</span><br></pre></td></tr></table></figure>
+
 <p>Reference:<br>[1]: <a target="_blank" rel="noopener" href="https://developer.qualcomm.com/comment/18637#comment-18637">https://developer.qualcomm.com/comment/18637#comment-18637</a></p>
 
                     
