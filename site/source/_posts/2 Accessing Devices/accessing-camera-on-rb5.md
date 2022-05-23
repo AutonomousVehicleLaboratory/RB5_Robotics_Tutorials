@@ -12,6 +12,8 @@ A key sensor for many robotics applications is camera. It enables cool applicati
 
 This tutorial will tell you a few ways to access these cameras. Before we start, note that these cameras cannot be read from OpenCV directly but a tool called GStreamer can bridge the gap.
 
+## OpenCV access through GStreamer and tcp
+
 The easiest way to access camera is through a tcp port created by GStreamer. Then you can use OpenCV to read data from the tcp port.
 
 On RB5, run the following command:
@@ -45,10 +47,37 @@ cap.release()
 
 Again, make sure you change the host ip to your RB5 ip.
 
+## accessing camera using ROS or ROS2 packages
+
 Another way is to use the ROS package we provided both in ROS1 and ROS2.
 
 ROS1: https://github.com/AutonomousVehicleLaboratory/rb5_ros/tree/main/rb5_vision
 ROS2: https://github.com/AutonomousVehicleLaboratory/rb5_ros2/tree/main/rb5_ros2_vision
+
+We provided launch file for both ROS and ROS2 packages so that it is easy to config the camera node.
+
+For example, you can run the RGB camera by
+```
+roslaunch rb5_vision rb_camera_main_ocv.launch
+```
+
+This will publish images to the topic /camera_0.
+
+Similarly, you can run the tracking camera by
+```
+roslaunch rb5_vision rb_camera_side_ocv.launch
+```
+
+And this will publish images to the topic /camera_1.
+
+For ROS2, the command will be
+```
+ros2 launch rb5_ros2_vision rb_camera_main_ocv_launch.py
+```
+and 
+```
+ros2 launch rb5_ros2_vision rb_camera_side_ocv_launch.py
+```
 
 Reference:
 [1]: https://developer.qualcomm.com/comment/18637#comment-18637
