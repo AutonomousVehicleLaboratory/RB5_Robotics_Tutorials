@@ -17,7 +17,8 @@ Here we define a set of primitive actions that can control this four-mechanum-wh
 
 The inverse kinematics of the robot can be described below.
 
- <img src="./control-example/inverse.png" align="center" />
+{% image inverse.png Inverse kinematics %}
+
 
 
 
