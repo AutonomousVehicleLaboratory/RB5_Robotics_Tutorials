@@ -49,19 +49,61 @@ Again, make sure you change the host ip to your RB5 ip.
 
 ## accessing camera using ROS or ROS2 packages
 
-Another way is to use the ROS package we provided both in ROS1 and ROS2.
+Another way is to use the ROS packages we provided both in ROS1 and ROS2.
 
-ROS1: https://github.com/AutonomousVehicleLaboratory/rb5_ros/tree/main/rb5_vision
-ROS2: https://github.com/AutonomousVehicleLaboratory/rb5_ros2/tree/main/rb5_ros2_vision
+ROS1: https://github.com/AutonomousVehicleLaboratory/rb5_ros
+ROS2: https://github.com/AutonomousVehicleLaboratory/rb5_ros2
 
 We provided launch file for both ROS and ROS2 packages so that it is easy to config the camera node.
 
-For example, you can run the RGB camera by
+### Access the Camera in ROS1
+
+For ROS1 package, first clone it to your workspace.
 ```
+# If you don't already have a works space, create one first.
+mkdir -p rosws/src
+
+# Go to the source folder
+cd rosws/src
+
+# Clone the repository
+git clone https://github.com/AutonomousVehicleLaboratory/rb5_ros
+```
+
+Then, build your package.
+```
+# Return to the root folder of the workspace.
+cd ..
+
+# Include the ros tools, this assumes you have ROS1 melodic installed
+source /opt/ros/melodic/setup.bash
+
+# Build only this package
+catkin_make --only-pkg-with-deps rb5_vision
+```
+
+Then you can run the package. For example, you can run the RGB camera by
+```
+# source the ros workspace
+source devel/setup.bash
+
+# start the program with a set of parameters in the launch file
 roslaunch rb5_vision rb_camera_main_ocv.launch
 ```
 
 This will publish images to the topic /camera_0.
+
+start a new terminal and check with the following command.
+
+```
+source /opt/ros/melodic/setup.bash
+
+rostopic list # list all the topics
+rostopic hz /camera_0 # get the frequency of the topic
+```
+
+Finally, you can stop the process by pressing Ctrl + C in the terminal where it is running. Notice that it will take a few seconds for it to stop.
+
 
 Similarly, you can run the tracking camera by
 ```
@@ -70,13 +112,49 @@ roslaunch rb5_vision rb_camera_side_ocv.launch
 
 And this will publish images to the topic /camera_1.
 
-For ROS2, the command will be
+### Access the camera in ROS2
+
+For ROS2 package, first clone it to your workspace.
 ```
+# If you don't already have a works space, create one first.
+mkdir -p ros2ws/src
+
+# Go to the source folder
+cd ros2ws/src
+
+# Clone the repository
+git clone https://github.com/AutonomousVehicleLaboratory/rb5_ros2
+```
+
+Then, build your package.
+```
+# Return to the root folder.
+cd ..
+
+# Include the ros tools, this assumes you have ROS2 dashing installed
+source /opt/ros/dashing/setup.bash
+
+# Build only this package
+colcon build --packages-select rb5_ros2_vision
+```
+
+Then you can run the package with.
+```
+# Source the ROS2 workspace
+source install/setup.bash
+
+# Run the RGB camera
 ros2 launch rb5_ros2_vision rb_camera_main_ocv_launch.py
-```
-and 
-```
+
+# Or run the tracking camera
 ros2 launch rb5_ros2_vision rb_camera_side_ocv_launch.py
+```
+
+Again, you can verify that the message is being published using the following command in another new terminal.
+```
+source /opt/ros/dashing/setup.bash
+ros2 topic list # check if the topic is being pubilshed
+ros2 topic hz /camera_0 # check the frequency of the RGB image message
 ```
 
 Reference:

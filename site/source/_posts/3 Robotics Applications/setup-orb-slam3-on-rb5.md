@@ -17,9 +17,14 @@ After downloading the code, follow the README.md to compile the ORB_SLAM3 librar
 
 ## ROS wrapper for ORB_SLAM3 on RB5
 
-We create wrapper for the ORB_SLAM3 api in both [ROS](https://github.com/AutonomousVehicleLaboratory/rb5_ros) and [ROS2](https://github.com/AutonomousVehicleLaboratory/rb5_ros2).
+We create wrapper for the ORB_SLAM3 api in both [ROS](https://github.com/AutonomousVehicleLaboratory/rb5_ros) and [ROS2](https://github.com/AutonomousVehicleLaboratory/rb5_ros2). These wrappers handles communication and data conversion. The ROS version was tested on ROS melodic and the ROS2 version was tested on RO2 dashing.
 
-You will need to modify the CMakeLists.txt file in the ROS and ROS2 packages to give the correct ORB_SLAM3 library path so that these nodes can be built successfully.
+The communication part includes receiving sensor messages published by other ROS node. The sensors include camera and IMU. If both of them are used, the wrapper also handles synchronization before passing them to the ORB_SLAM3 library. After the pose is given by the output from the ORB_SLAM3 library, we then convert it into transformation and publish to ROS TF.
+
+We seperate the ORB_SLAM3 library and the ROS wrapper so that we don't need to include this library into the ROS workspace. You will need to modify the line 4 of the CMakeLists.txt file in the ROS and ROS2 packages to give the correct ORB_SLAM3 library path so that these nodes can be built successfully.
+```
+set(ORB_SLAM3_SOURCE_DIR "path/to/ORB_SLAM3_RB5/")
+```
 
 When running the ROS node, you will need to access camera using the ROS package we mentioned in the basic tutorial [accessing cameras](https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/02/15/2%20Accessing%20Devices/accessing-camera-on-rb5/).
 
