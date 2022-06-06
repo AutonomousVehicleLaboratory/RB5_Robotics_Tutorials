@@ -138,7 +138,7 @@ source /opt/ros/dashing/setup.bash
 colcon build --packages-select rb5_ros2_vision
 ```
 
-Then you can run the package with.
+Then you can run the package.
 ```
 # Source the ROS2 workspace
 source install/setup.bash
