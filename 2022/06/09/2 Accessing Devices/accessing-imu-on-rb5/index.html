@@ -6,22 +6,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="RB5 ROBOTICS TUTORIALS">
-    <title>(2) Visualization Tools - RB5 ROBOTICS TUTORIALS</title>
+    <title>(2) Accessing IMU on RB5 - RB5 ROBOTICS TUTORIALS</title>
     <meta name="author" content="RB5 ROBOTICS TUTORIALS">
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"RB5 ROBOTICS TUTORIALS","sameAs":[],"image":"avl-letters.png"},"articleBody":"Getting a gnome desktop is desirable for its more familiar to most of us compared to the default wayland desktop. \nTo get the gnome desktop, you will need to unminimize the system first. The current system is a minimal ubuntu 18.04 server and you can unminimize it to add more tools.\nThen you can start install the gnome desktop by the following commands:\n12apt install gdm3 taskseltasksel install ubuntu-desktop\n\nWhen this is done, you need to run the following command everytime you want to us the gnome desktop.\n1service gdm3 start\n\nNotice that in order to successfully login to the gnome desktop, make use you choose the wayland for ubuntu in the login page, otherwise your username and password might not work.\nNotice that even we have this gnome desktop, many gui applications with x11 support might still not work. However, the gnome-terminal and RViz will work properly.\nAlso, we do not recommand use this desktop because it takes a lot of computation (300-400% cpu!!!). It should only be used for visualization and debugging purpose for a short period of time.\nReference:[1] https://linuxconfig.org/how-to-install-gnome-on-ubuntu-18-04-bionic-beaver-linux\n","dateCreated":"2022-05-18T17:12:21-07:00","dateModified":"2022-05-22T23:30:30-07:00","datePublished":"2022-05-18T17:12:21-07:00","description":"","headline":"(2) Visualization Tools","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/18/1%20Initial%20Set-up/visualization-tools/"},"publisher":{"@type":"Organization","name":"RB5 ROBOTICS TUTORIALS","sameAs":[],"image":"avl-letters.png","logo":{"@type":"ImageObject","url":"avl-letters.png"}},"url":"https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/18/1%20Initial%20Set-up/visualization-tools/"}</script>
-    <meta name="description" content="Getting a gnome desktop is desirable for its more familiar to most of us compared to the default wayland desktop.  To get the gnome desktop, you will need to unminimize the system first. The current s">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"RB5 ROBOTICS TUTORIALS","sameAs":[],"image":"avl-letters.png"},"articleBody":"RB5 comes with an Inertial Measurement Unit (IMU). An IMU estimates the linear acceleration and angular velocity. These capabilities enable applications such as motion estimation and visual inertial SLAM, which are essential to many robotics tasks. The IMU can be accessed by a ROS2 node.\nAssuming you have ROS2 dashing installed, then you can run the IMU node.\n12345# source the ros dashing environmentsource /opt/ros/dashing/setup.bash# run the noderos2 run imu-ros2node imu-ros2node\n\nCheck the published IMU messages in a new terminal.\n12345# In a new terminal, source the environment.source /opt/ros/dashing/setup.bashros2 topic list # list the topicros2 topic echo /imu # print the messages","dateCreated":"2022-06-09T14:53:21-07:00","dateModified":"2022-06-09T15:22:01-07:00","datePublished":"2022-06-09T14:53:21-07:00","description":"","headline":"(2) Accessing IMU on RB5","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/06/09/2%20Accessing%20Devices/accessing-imu-on-rb5/"},"publisher":{"@type":"Organization","name":"RB5 ROBOTICS TUTORIALS","sameAs":[],"image":"avl-letters.png","logo":{"@type":"ImageObject","url":"avl-letters.png"}},"url":"https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/06/09/2%20Accessing%20Devices/accessing-imu-on-rb5/","keywords":"Sensor, IMU"}</script>
+    <meta name="description" content="RB5 comes with an Inertial Measurement Unit (IMU). An IMU estimates the linear acceleration and angular velocity. These capabilities enable applications such as motion estimation and visual inertial S">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="(2) Visualization Tools">
-<meta property="og:url" content="https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/18/1%20Initial%20Set-up/visualization-tools/index.html">
+<meta property="og:title" content="(2) Accessing IMU on RB5">
+<meta property="og:url" content="https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/06/09/2%20Accessing%20Devices/accessing-imu-on-rb5/index.html">
 <meta property="og:site_name" content="RB5 ROBOTICS TUTORIALS">
-<meta property="og:description" content="Getting a gnome desktop is desirable for its more familiar to most of us compared to the default wayland desktop.  To get the gnome desktop, you will need to unminimize the system first. The current s">
+<meta property="og:description" content="RB5 comes with an Inertial Measurement Unit (IMU). An IMU estimates the linear acceleration and angular velocity. These capabilities enable applications such as motion estimation and visual inertial S">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-05-19T00:12:21.000Z">
-<meta property="article:modified_time" content="2022-05-23T06:30:30.287Z">
+<meta property="article:published_time" content="2022-06-09T21:53:21.000Z">
+<meta property="article:modified_time" content="2022-06-09T22:22:01.748Z">
 <meta property="article:author" content="RB5 ROBOTICS TUTORIALS">
+<meta property="article:tag" content="Sensor">
+<meta property="article:tag" content="IMU">
 <meta name="twitter:card" content="summary">
     
     
@@ -216,20 +218,20 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title">
-            (2) Visualization Tools
+            (2) Accessing IMU on RB5
         </h1>
     
     
         <div class="post-meta">
-    <time datetime="2022-05-18T17:12:21-07:00">
+    <time datetime="2022-06-09T14:53:21-07:00">
 	
-		    May 18, 2022
+		    Jun 09, 2022
     	
     </time>
     
         <span>in </span>
         
-    <a class="category-link" href="/RB5_Robotics_Tutorials/categories/1-Initial-Set-up/">1 Initial Set-up</a>
+    <a class="category-link" href="/RB5_Robotics_Tutorials/categories/2-Accessing-Devices/">2 Accessing Devices</a>
 
 
     
@@ -241,19 +243,12 @@
     
     <div class="post-content markdown">
         <div class="main-content-wrap">
-            <p>Getting a gnome desktop is desirable for its more familiar to most of us compared to the default wayland desktop. </p>
-<p>To get the gnome desktop, you will need to unminimize the system first. The current system is a minimal ubuntu 18.04 server and you can unminimize it to add more tools.</p>
-<p>Then you can start install the gnome desktop by the following commands:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt install gdm3 tasksel</span><br><span class="line">tasksel install ubuntu-desktop</span><br></pre></td></tr></table></figure>
+            <p>RB5 comes with an Inertial Measurement Unit (IMU). An IMU estimates the linear acceleration and angular velocity. These capabilities enable applications such as motion estimation and visual inertial SLAM, which are essential to many robotics tasks. The IMU can be accessed by a ROS2 node.</p>
+<p>Assuming you have ROS2 dashing installed, then you can run the IMU node.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># source the ros dashing environment</span><br><span class="line">source /opt/ros/dashing/setup.bash</span><br><span class="line"></span><br><span class="line"># run the node</span><br><span class="line">ros2 run imu-ros2node imu-ros2node</span><br></pre></td></tr></table></figure>
 
-<p>When this is done, you need to run the following command everytime you want to us the gnome desktop.</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service gdm3 start</span><br></pre></td></tr></table></figure>
-
-<p>Notice that in order to successfully login to the gnome desktop, make use you choose the wayland for ubuntu in the login page, otherwise your username and password might not work.</p>
-<p>Notice that even we have this gnome desktop, many gui applications with x11 support might still not work. However, the gnome-terminal and RViz will work properly.</p>
-<p>Also, we do not recommand use this desktop because it takes a lot of computation (300-400% cpu!!!). It should only be used for visualization and debugging purpose for a short period of time.</p>
-<p>Reference:<br>[1] <a target="_blank" rel="noopener" href="https://linuxconfig.org/how-to-install-gnome-on-ubuntu-18-04-bionic-beaver-linux">https://linuxconfig.org/how-to-install-gnome-on-ubuntu-18-04-bionic-beaver-linux</a></p>
-
+<p>Check the published IMU messages in a new terminal.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># In a new terminal, source the environment.</span><br><span class="line">source /opt/ros/dashing/setup.bash</span><br><span class="line"></span><br><span class="line">ros2 topic list # list the topic</span><br><span class="line">ros2 topic echo /imu # print the messages</span><br></pre></td></tr></table></figure>
             
 
 
@@ -261,20 +256,24 @@
     </div>
     <div id="post-footer" class="post-footer main-content-wrap">
         
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/RB5_Robotics_Tutorials/tags/IMU/" rel="tag">IMU</a> <a class="tag tag--primary tag--small t-none-link" href="/RB5_Robotics_Tutorials/tags/Sensor/" rel="tag">Sensor</a>
+
+            </div>
+        
         
             <div class="post-actions-wrap">
     <nav>
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/RB5_Robotics_Tutorials/2022/05/21/3%20Robotics%20Applications/ros-installation/"
-                    data-tooltip="(1) ROS Installation"
-                    aria-label="PREVIOUS: (1) ROS Installation"
-                >
-                    
+                    <a
+                        class="post-action-btn btn btn--disabled"
+                        aria-hidden="true"
+                    >
+                        
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
                     </a>
@@ -284,9 +283,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/RB5_Robotics_Tutorials/2022/05/18/2%20Accessing%20Devices/building-and-loading-kernel-modules/"
-                    data-tooltip="(3) Building and Loading Kernel Modules"
-                    aria-label="NEXT: (3) Building and Loading Kernel Modules"
+                    href="/RB5_Robotics_Tutorials/2022/05/22/3%20Robotics%20Applications/control-example-interface/"
+                    data-tooltip="(4) Control - An example interface using the Megabot Robot"
+                    aria-label="NEXT: (4) Control - An example interface using the Megabot Robot"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -311,7 +310,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/18/1%20Initial%20Set-up/visualization-tools/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/06/09/2%20Accessing%20Devices/accessing-imu-on-rb5/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -324,7 +323,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/18/1%20Initial%20Set-up/visualization-tools/"
+                    target="new" href="https://twitter.com/intent/tweet?text=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/06/09/2%20Accessing%20Devices/accessing-imu-on-rb5/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -337,7 +336,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/18/1%20Initial%20Set-up/visualization-tools/"
+                    target="new" href="https://plus.google.com/share?url=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/06/09/2%20Accessing%20Devices/accessing-imu-on-rb5/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -382,14 +381,11 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/RB5_Robotics_Tutorials/2022/05/21/3%20Robotics%20Applications/ros-installation/"
-                    data-tooltip="(1) ROS Installation"
-                    aria-label="PREVIOUS: (1) ROS Installation"
-                >
-                    
+                    <a
+                        class="post-action-btn btn btn--disabled"
+                        aria-hidden="true"
+                    >
+                        
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
                     </a>
@@ -399,9 +395,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/RB5_Robotics_Tutorials/2022/05/18/2%20Accessing%20Devices/building-and-loading-kernel-modules/"
-                    data-tooltip="(3) Building and Loading Kernel Modules"
-                    aria-label="NEXT: (3) Building and Loading Kernel Modules"
+                    href="/RB5_Robotics_Tutorials/2022/05/22/3%20Robotics%20Applications/control-example-interface/"
+                    data-tooltip="(4) Control - An example interface using the Megabot Robot"
+                    aria-label="NEXT: (4) Control - An example interface using the Megabot Robot"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -426,7 +422,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/18/1%20Initial%20Set-up/visualization-tools/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/06/09/2%20Accessing%20Devices/accessing-imu-on-rb5/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -439,7 +435,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/18/1%20Initial%20Set-up/visualization-tools/"
+                    target="new" href="https://twitter.com/intent/tweet?text=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/06/09/2%20Accessing%20Devices/accessing-imu-on-rb5/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -452,7 +448,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/18/1%20Initial%20Set-up/visualization-tools/"
+                    target="new" href="https://plus.google.com/share?url=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/06/09/2%20Accessing%20Devices/accessing-imu-on-rb5/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -486,7 +482,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://www.facebook.com/sharer/sharer.php?u=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/18/1%20Initial%20Set-up/visualization-tools/"
+                        href="https://www.facebook.com/sharer/sharer.php?u=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/06/09/2%20Accessing%20Devices/accessing-imu-on-rb5/"
                         aria-label="Share on Facebook"
                     >
                         <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
@@ -499,7 +495,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://twitter.com/intent/tweet?text=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/18/1%20Initial%20Set-up/visualization-tools/"
+                        href="https://twitter.com/intent/tweet?text=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/06/09/2%20Accessing%20Devices/accessing-imu-on-rb5/"
                         aria-label="Share on Twitter"
                     >
                         <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
@@ -512,7 +508,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://plus.google.com/share?url=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/05/18/1%20Initial%20Set-up/visualization-tools/"
+                        href="https://plus.google.com/share?url=https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/06/09/2%20Accessing%20Devices/accessing-imu-on-rb5/"
                         aria-label="Share on Google+"
                     >
                         <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>

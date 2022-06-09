@@ -217,6 +217,68 @@
                     
                         <a
                             class="link-unstyled"
+                            href="/RB5_Robotics_Tutorials/2022/06/09/2%20Accessing%20Devices/accessing-imu-on-rb5/"
+                            aria-label=": (2) Accessing IMU on RB5"
+                        >
+                            (2) Accessing IMU on RB5
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2022-06-09T14:53:21-07:00">
+	
+		    Jun 09, 2022
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/RB5_Robotics_Tutorials/categories/2-Accessing-Devices/">2 Accessing Devices</a>
+
+
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <p>RB5 comes with an Inertial Measurement Unit (IMU). An IMU estimates the linear acceleration and angular velocity. These capabilities enable applications such as motion estimation and visual inertial SLAM, which are essential to many robotics tasks. The IMU can be accessed by a ROS2 node.</p>
+<p>Assuming you have ROS2 dashing installed, then you can run the IMU node.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># source the ros dashing environment</span><br><span class="line">source /opt/ros/dashing/setup.bash</span><br><span class="line"></span><br><span class="line"># run the node</span><br><span class="line">ros2 run imu-ros2node imu-ros2node</span><br></pre></td></tr></table></figure>
+
+<p>Check the published IMU messages in a new terminal.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># In a new terminal, source the environment.</span><br><span class="line">source /opt/ros/dashing/setup.bash</span><br><span class="line"></span><br><span class="line">ros2 topic list # list the topic</span><br><span class="line">ros2 topic echo /imu # print the messages</span><br></pre></td></tr></table></figure>
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a
+                                href="/RB5_Robotics_Tutorials/2022/06/09/2%20Accessing%20Devices/accessing-imu-on-rb5/#post-footer"
+                                class="postShorten-excerpt_link link"
+                                aria-label=""
+                            >
+                                Comment and share
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a
+                            class="link-unstyled"
                             href="/RB5_Robotics_Tutorials/2022/05/22/3%20Robotics%20Applications/control-example-interface/"
                             aria-label=": (4) Control - An example interface using the Megabot Robot"
                         >
@@ -473,9 +535,9 @@
                         <a
                             class="link-unstyled"
                             href="/RB5_Robotics_Tutorials/2022/05/18/2%20Accessing%20Devices/building-and-loading-kernel-modules/"
-                            aria-label=": (2) Building and Loading Kernel Modules"
+                            aria-label=": (3) Building and Loading Kernel Modules"
                         >
-                            (2) Building and Loading Kernel Modules
+                            (3) Building and Loading Kernel Modules
                         </a>
                     
                 </h1>
