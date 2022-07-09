@@ -7,21 +7,23 @@ tags:
   - System
 ---
 
-The LU build outlined during in the [bring-up process](https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/02/13/1%20Initial%20Set-up/bring-up-rb5/) comprises of a minimal Ubuntu 18.04 installation. For this reason, various device kernel modules need to be build from source and loaded. In this tutorial, we document the process of building and loading the kernel modules for a USB joystick (**joydev**) and USB over serial (**ch341**). The source code associated with these modules is open-source and available as part of the [linux kernel](https://github.com/torvalds/linux).
+The LU build outlined during in the [bring-up process](https://autonomousvehiclelaboratory.github.io/RB5_Robotics_Tutorials/2022/02/13/1%20Initial%20Set-up/bring-up-rb5/) comprises of a minimal Ubuntu 18.04 installation. For this reason, various device kernel modules need to be build from source and loaded. In this tutorial, we document the process of building and loading the kernel modules for a USB joystick (**joydev**) and USB over serial (**ch341**). The source code associated with these modules is open-source and available as part of the [linux kernel](https://github.com/torvalds/linux). We suggest use the USB-C cable to connect your RB5 to the computer so that you can copy large block of code over. Make sure you check the correctness of the format.
 
 ### joydev
 
 The kernel version utilized for this tutorial corresponds to `4.19.125`. If a different version is being used, you can find the version that matches your kernel by utilizing `uname -r`.
 
-Extract the source code associated with this module
+Extract the source code associated with this module, copy it to a temporary directory, for example, we use directory `joydev`.
 
 ```
 wget https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.19.125.tar.gz
-tar xvzf linux-4.19.125.tar.gz 
-cp -r linux-4.19.125/drivers/input /temp/dir && cd /temp/dir/input
+tar xvzf linux-4.19.125.tar.gz
+
+mkdir joydev
+cp -r linux-4.19.125/drivers/input/* joydev/ && cd joydev/
 ```
 
-The following changes need to be made to the Makefile that was copied to `/temp/dir/input`.
+The following code need to be appended to the end of the Makefile that was copied to the temporary directory `joydev`.
 
 ```makefile
 KVERS = $(shell uname -r)
@@ -47,7 +49,14 @@ make
 insmod joydev.ko
 ```
 
-To avoid loading the module every time, the following script can be utlized.
+To avoid loading the module every time, create a script outside of the directory.
+
+```
+cd ..
+vim joydev.sh
+```
+
+then copy the following script into the file.
 
 ```shell
 #!/bin/bash
@@ -69,19 +78,27 @@ else
 fi
 ```
 
+save the file and execute it with
+```
+bash joydev.sh
+```
 
 
 ### ch341
 
-Extract the source code associated with this module
+Extract the source code associated with this module to a temporary directory, in this case `ch341`
 
 ```
+# Skip these two steps if you already did it
 wget https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.19.125.tar.gz
 tar xvzf linux-4.19.125.tar.gz 
-cp linux-4.19.125/drivers/usb/serial && cd /temp/dir/input
+
+mkdir ch341
+cp -r linux-4.19.125/drivers/usb/serial/* ch341 && cd ch341
+mkdir -p /lib/modules/$(uname -r)/kernel/drivers/usb/serial
 ```
 
-The following changes need to be made to the Makefile that was copied to `/temp/dir/input`.
+The following code need to be append to the end of the Makefile that was copied to `ch341`.
 
 ```makefile
 KVERS = $(shell uname -r)
@@ -107,8 +124,14 @@ make
 insmod ch341.ko
 ```
 
-To avoid loading the module every time, the following script can be utlized.
+To avoid loading the module every time, create a script outside of the directory.
 
+```
+cd ..
+vim ch341.sh
+```
+
+then copy the following script into the file.
 ```shell
 #!/bin/bash
 
@@ -129,6 +152,10 @@ else
 fi
 ```
 
+save the file and execute it with
+```
+bash ch341.sh
+```
 
 
 The Makefiles and kernel modules can be found on [Github](https://github.com/AutonomousVehicleLaboratory/rb5_lib).
