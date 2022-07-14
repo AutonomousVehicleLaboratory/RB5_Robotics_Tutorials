@@ -21,7 +21,6 @@ tar xvzf linux-4.19.125.tar.gz
 
 mkdir joydev
 cp -r linux-4.19.125/drivers/input/* joydev/ && cd joydev/
-mkdir -p /lib/modules/$(uname -r)/kernel/drivers/input/
 ```
 
 The following code need to be appended to the end of the Makefile that was copied to the temporary directory `joydev`.
@@ -73,6 +72,7 @@ then
   echo ".ko file compiled with " $MODULE_VERSION
   echo "System kernel is " $KERNEL_VERSION
 else
+  mkdir -p /lib/modules/$(uname -r)/kernel/drivers/input/
   cp ./joydev/joydev.ko /lib/modules/$(uname -r)/kernel/drivers/input/
   depmod -a
   echo "JOYDEV loaded"
@@ -97,7 +97,6 @@ tar xvzf linux-4.19.125.tar.gz
 
 mkdir ch341
 cp -r linux-4.19.125/drivers/usb/serial/* ch341 && cd ch341
-mkdir -p /lib/modules/$(uname -r)/kernel/drivers/usb/serial/
 ```
 
 The following code need to be append to the end of the Makefile that was copied to `ch341`.
@@ -148,6 +147,7 @@ then
   echo ".ko file compiled with " $MODULE_VERSION
   echo "System kernel is " $KERNEL_VERSION
 else
+  mkdir -p /lib/modules/$(uname -r)/kernel/drivers/usb/serial/
   cp ./ch341/ch341.ko /lib/modules/$(uname -r)/kernel/drivers/usb/serial/
   depmod -a
   echo "CH341 loaded"
