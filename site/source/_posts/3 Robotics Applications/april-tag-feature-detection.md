@@ -73,11 +73,20 @@ The components described above have been wrapped into ROS1 and ROS2 implementati
 Create a workspace, clone the ROS1 implementation, and build the package. Make sure ROS is in your path, i.e. `source /opt/ros/melodic/setup.bash`. 
 
 ```
+# install dependency
+apt install ros-melodic-apriltag
+
 mkdir -p rb5_ws/src && cd rb5_ws/src
 git clone https://github.com/AutonomousVehicleLaboratory/rb5_ros.git
 cd ..
+
+# build all packages in the workspace
 catkin_make
-source rb5_ws/devel/setup.bash 
+source devel/setup.bash
+
+# if the build all packages failed, try build only
+catkin_make --only-pkg-with-deps rb5_vision
+catkin_make --only-pkg-with-deps april_detection
 ```
 
 Start the camera node
@@ -89,7 +98,7 @@ roslaunch rb5_vision rb_camera_main_ocv.launch
 Start the AprilTag detection node
 
 ```
-ros run april_detection april_detection_node
+rosrun april_detection april_detection_node
 ```
 
 
@@ -122,7 +131,7 @@ ros2 run ros2_april_detection april_detection_node
 
 ## Visualizing the markers and poses
 
-For convenience, our ROS implementations publish messages of type `geometry_msgs::PoseStamped` ([ROS1](http://docs.ros.org/en/melodic/api/geometry_msgs/html/msg/PoseStamped.html)) and `geometry_msgs::msg::PoseStamped` ([ROS2](https://docs.ros2.org/foxy/api/geometry_msgs/msg/PoseStamped.html)). These messages are timestamped and include a unique ID that corresponds to the marker ID as part of the message header. Nonetheless, the main component of each is message is the marker's pose in 3D which is represented as a position (a point) and orientation (here represented as a Quaternion). While we won't go into the math component on how Quaternions are utilized to represent orientations in 3D space, ROS has an good tools for handling transformation and can handle transformations with ease. Below is a video of each marker being visualized using the 3D visualization tool for ROS called RViz. The video demos AprilTag3 detection and real-time 3D pose estimation running onboard of Qualcomm RB5.
+For convenience, our ROS implementations publish messages of type `geometry_msgs::PoseArray` ([ROS1](http://docs.ros.org/en/melodic/api/geometry_msgs/html/msg/PoseArray.html)) and `geometry_msgs::msg::PoseStamped` ([ROS2](https://docs.ros2.org/foxy/api/geometry_msgs/msg/PoseStamped.html)). These messages are timestamped and include a unique ID that corresponds to the marker ID as part of the message header. Nonetheless, the main component of each is message is the marker's pose in 3D which is represented as a position (a point) and orientation (here represented as a Quaternion). While we won't go into the math component on how Quaternions are utilized to represent orientations in 3D space, ROS has an good tools for handling transformation and can handle transformations with ease. Below is a video of each marker being visualized using the 3D visualization tool for ROS called RViz. The video demos AprilTag3 detection and real-time 3D pose estimation running onboard of Qualcomm RB5.
 
 {% youtube qRoW6ljBfFo %}
 
