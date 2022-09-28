@@ -1,14 +1,14 @@
 ---
-title: (1) Bring Up RB5
+title: (1) Bring Up Qualcomm Robotics RB5
 categories:
   - 1 Initial Set-up
 date: 2022-02-13 17:12:21
 tags:
 ---
 
-RB5 is a powerful edge computing device for robotics applications. Before we can use it to drive cool applications, we need to flash an operating system into it. In this tutorial, we will show you how to set up Ubuntu 18.04 on RB5, connect it to WiFi to enable SSH and config HDMI display. We enhanced the [official setup guide](https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/quick-start-guide/qualcomm_robotics_rb5_development_kit_bring_up) with some additional tips. The setup steps requires a computer with Ubuntu operating system. 
+Qualcomm Robotics RB5 is a powerful edge computing device for robotics applications. Before we can use it to drive cool applications, we need to flash an operating system into it. In this tutorial, we will show you how to set up Ubuntu 18.04 on Qualcomm Robotics RB5, connect it to WiFi to enable SSH and config HDMI display. We enhanced the [official setup guide](https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/quick-start-guide/qualcomm_robotics_rb5_development_kit_bring_up) with some additional tips. The setup steps requires a computer with Ubuntu operating system. 
 
-## Install Ubuntu 18.04 on RB5
+## Install Ubuntu 18.04 on Qualcomm Robotics RB5
 
 a) Install adb and fastboot by using the following command in Linux Terminal: 
 
@@ -33,11 +33,11 @@ g) Follow step 4 from the same [link](https://developer.qualcomm.com/qualcomm-ro
 
 h) Choose LU or LE flash. The LU flash has been tried before and flash was a success. This [forum answer](https://developer.qualcomm.com/comment/18517) is a possible explanation for the difference between LU and LE flash.
 
-i) Now, start the process of flashing the generated system images on the RB5 by following step 5 from the same [link](https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/quick-start-guide/qualcomm_robotics_rb5_development_kit_bring_up/download-and-install-the-SDK-manager)
+i) Now, start the process of flashing the generated system images on the Qualcomm Robotics RB5 by following step 5 from the same [link](https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/quick-start-guide/qualcomm_robotics_rb5_development_kit_bring_up/download-and-install-the-SDK-manager)
 
 j) Follow steps 1-3 from this [link](https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/quick-start-guide/qualcomm_robotics_rb5_development_kit_bring_up/flash-images) to continue and complete the flashing process successfully.
 
-k) If flashing is successful, adb should be working. To check this, keep your RB5 connected to your workstation and open your workstation's terminal and type: 
+k) If flashing is successful, adb should be working. To check this, keep your Qualcomm Robotics RB5 connected to your workstation and open your workstation's terminal and type: 
 ```
 adb shell
 ```
@@ -48,9 +48,9 @@ l) If not, please power cycle the development kit. Since the system images are f
 ## Setup WiFi and SSH
 
 Once the OS is flashed, the next step involves setting up WiFi and SSH connections.
-To set up WiFi connectivity on RB5, follow steps 1-4 from this [link](https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/quick-start-guide/qualcomm_robotics_rb5_development_kit_bring_up/set-up-network)
+To set up WiFi connectivity on Qualcomm Robotics RB5, follow steps 1-4 from this [link](https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/quick-start-guide/qualcomm_robotics_rb5_development_kit_bring_up/set-up-network)
 
-To access RB5 terminal, both adb shell or SSH can be used. To set up SSH connection:
+To access Qualcomm Robotics RB5 terminal, both adb shell or SSH can be used. To set up SSH connection:
 
 a) Type the following commands in a new terminal:
 ```
@@ -64,7 +64,7 @@ The 'ifconfig' command gives you the IP address of your connection.
 ```
  This will ask you for a password, which is 'oelinux123'
   
-This will successfully complete the SSH connection, through which you can remotely access the RB5 terminal.
+This will successfully complete the SSH connection, through which you can remotely access the Qualcomm Robotics RB5 terminal.
   
 ## HDMI Display
 
