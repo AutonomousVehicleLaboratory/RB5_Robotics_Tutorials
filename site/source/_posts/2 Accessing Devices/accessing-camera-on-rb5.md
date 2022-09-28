@@ -1,5 +1,5 @@
 ---
-title: (1) Accessing Camera on RB5
+title: (1) Accessing the peripherals on Qualcomm Robotics RB5
 date: 2022-02-15 17:12:21
 categories:
   - 2 Accessing Devices
@@ -8,7 +8,7 @@ tags:
   - Sensor
 ---
 
-A key sensor for many robotics applications is camera. It enables cool applications such as object detection, semantic segmentation and visual SLAM. There are two cameras on RB5.
+A key sensor for many robotics applications is camera. It enables cool applications such as object detection, semantic segmentation and visual SLAM. There are two cameras on Qualcomm Robotics RB5.
 
 This tutorial will tell you a few ways to access these cameras. Before we start, note that these cameras cannot be read from OpenCV directly but a tool called GStreamer can bridge the gap.
 
@@ -16,20 +16,20 @@ This tutorial will tell you a few ways to access these cameras. Before we start,
 
 The easiest way to access camera is through a tcp port created by GStreamer. Then you can use OpenCV to read data from the tcp port.
 
-On RB5, run the following command:
+On Qualcomm Robotics RB5, run the following command:
 
 ```
 gst-launch-1.0 -e qtiqmmfsrc name=qmmf ! video/x-h264,format=NV12, width=1280, height=720,framerate=30/1 ! h264parse config-interval=1 ! mpegtsmux name=muxer ! queue ! tcpserversink port=8900 host=192.168.1.120
 ```
 
-Note that you will need to change the host ip to your RB5 ip address. This can be done by running the following command.
+Note that you will need to change the host ip to your Qualcomm Robotics RB5's IP address. This can be done by running the following command.
 
 ```
 sudo apt install net-tools # if you don't have ifconfig
 ifconfig
 ```
 
-The ip address of RB5 can be found after inet as something like 192.168.0.xxx.
+The ip address of Qualcomm Robotics RB5 can be found after inet as something like 192.168.0.xxx.
 
 Then you can access the camera with the help of the OpenCV library. A python example is given below
 
@@ -45,7 +45,7 @@ while(True):
 cap.release()
 ```
 
-Again, make sure you change the host ip to your RB5 ip.
+Again, make sure you change the host ip to your Qualcomm Robotics RB5 IP.
 
 ## accessing camera using ROS or ROS2 packages
 
