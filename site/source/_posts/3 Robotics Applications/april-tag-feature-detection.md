@@ -40,33 +40,63 @@ apriltag_detector_t *a_detector = apriltag_detector_create();
 zarray_t * detections = apriltag_detector_detect(a_detector, &im);
 ```
 
-As it can be seen, `apriltag_detector_detect()` returns an array of type `zarray_t` with the list of detections concatenated. In the following code block we extract individual detections into instances of type `apriltag_detection_t` and perform a perspective mapping using the homography matrix calculated. This is handled by `estimate_tag_pose()`. However, two important considerations include *i)* that we know the size of the markers in advance, and *ii)* we understand the intrinsic parameters of the camera that include image center and focal length. These are attributes that are part of the first argument of type `apriltag_detection_info_t` that is passed to `estimate_tag_pose()`. The marker size used in our implementation corresponds to $15.9cm$ and the camera parameters are estimated for the wide angle lens of the Qualcomm Robotics RB5 using the [OpenCV calibration tool](https://docs.opencv.org/4.x/dc/dbb/tutorial_py_calibration.html) and a standard checkerboard target.
-
+As it can be seen, `apriltag_detector_detect()` returns an array of type `zarray_t` with the list of detections concatenated. In the following code block we extract individual detections into instances of type `apriltag_detection_t` and perform a perspective mapping using the homography matrix calculated. This is handled by `estimate_tag_pose()`. However, two important considerations include *i)* that we know the size of the markers in advance, and *ii)* we understand the intrinsic parameters of the camera that include image center and focal length. These are attributes that are part of the first argument of type `apriltag_detection_info_t` that is passed to `estimate_tag_pose()`. 
 ```c++
 apriltag_detection_t *det;
-apriltag_detection_info_t tag_info; 
 vector<apriltag_pose_t> poses;
 vector<int> ids;
 
-tag_info.tagsize = 0.159;
-tag_info.fx = 663.57507; 
-tag_info.fy = 694.47272;
-tag_info.cx = 956.22994;
-tag_info.cy = 539.54574;
-
 for (int i=0; i<zarray_size(detections); i++){
+
   zarray_get(detections, i, &det);
-  tag_info.det = det;
+  info.det = det;
   apriltag_pose_t pose;
 
   // estimate SE(3) pose 
-  estimate_tag_pose(&tag_info, &pose);
+  estimate_tag_pose(&info, &pose);
   poses.push_back(pose);
   ids.push_back(det->id);
 }
 ```
+The marker size used in our implementation corresponds to $0.162m$ (depending on the print AprilTag marker size) and the camera parameters are estimated for the wide angle lens of the Qualcomm Robotics RB5 using the [OpenCV calibration tool](https://docs.opencv.org/4.x/dc/dbb/tutorial_py_calibration.html) or its [ROS version](http://wiki.ros.org/camera_calibration) and a standard checkerboard target. Notice that after you calibrate your camera and undistort the image, the undistort image will have a new camera matrix. We set the info for AprilTag to perform accurate pose estimation after getting the new camera matrix.
+```c++
+cv::Mat rectify(const cv::Mat image){
+  cv::Mat image_rect = image.clone();
+  // get new camera matrix after undistort
+  // alpha is set to 0.0 so all pixels are valid
+  const cv::Mat new_K = cv::getOptimalNewCameraMatrix(K, d, image.size(), 0.0);
+  cv::undistort(image, image_rect, K, d, new_K);
 
-The components described above have been wrapped into ROS1 and ROS2 implementations and be evaluated using the steps below.
+  // set info for pose estimation using new camera matrix
+  det.setInfo(tagSize, new_K.at<double>(0,0), new_K.at<double>(1,1), new_K.at<double>(0,2), new_K.at<double>(1,2));
+
+  return image_rect;
+}
+
+void AprilDetection::setInfo(double tagSize, double fx, double fy, double cx, double cy){
+  info.tagsize = tagSize;
+  info.fx = fx;
+  info.fy = fy;
+  info.cx = cx;
+  info.cy = cy;
+}
+```
+The components described above have been wrapped into ROS1 and ROS2 implementations and be evaluated using the steps below. You will need to set the following parameters in the node.
+```c++
+// TODO: Replace these parameters using your calibration results
+double distortion_coeff[] =
+        {0.008549, -0.016273, -0.002954, -0.003708, 0.000000};
+double intrinsics[] = {683.558755,    0.     ,  961.607445,
+                       0.     ,  680.809134,  547.701668,
+                       0.     ,    0.     ,    1.};
+
+const cv::Mat d(cv::Size(1, 5), CV_64FC1, distortion_coeff);
+const cv::Mat K(cv::Size(3, 3), CV_64FC1, intrinsics);
+
+// TODO: Set tagSize for pose estimation, assuming same tag size.
+// details from: https://github.com/AprilRobotics/apriltag/wiki/AprilTag-User-Guide#pose-estimation
+const double tagSize = 0.162; // in meters
+```
 
 ## ROS1 
 
